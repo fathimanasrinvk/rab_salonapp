@@ -18,18 +18,25 @@ class GLTextStyles {
       color: color ?? ColorTheme.black,
     );
   }
-  static onboardingtext2({double? size, FontWeight? weight, Color? color}) {
+  static onboardbottomcardtxt({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.lato(
       fontSize: size ?? 15.sp,
       fontWeight: weight ?? FontWeight.normal,
       color: color ?? ColorTheme.black,
     );
   }
-    static onboardingbutton({double? size, FontWeight? weight, Color? color}) {
+    static onboardingandsavebutton({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.rakkas(
       fontSize: size ?? 15.sp,
       fontWeight: weight ?? FontWeight.normal,
       color: color ?? ColorTheme.white,
+    );
+  }
+   static saveandnewbutton({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.rakkas(
+      fontSize: size ?? 15.sp,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.maincolor,
     );
   }
    static locationtext({double? size, FontWeight? weight, Color? color}) {
@@ -74,7 +81,7 @@ class GLTextStyles {
       color: color ?? ColorTheme.maincolor,
     );
   }
-  static subheadding({double? size, FontWeight? weight, Color? color}) {
+  static subheadding2({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.lato(
       fontSize: size ?? 20.sp,
       fontWeight: weight ?? FontWeight.bold,
@@ -95,4 +102,40 @@ class GLTextStyles {
       color: color ?? ColorTheme.black,
     );
   }
+   static flaotingbuttontext({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.lato(
+      fontSize: size ?? 20.sp,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.black,
+    );
+  }
+ static bottomtxt2({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.lato(
+      fontSize: size ?? 15.sp,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.white,
+    );
+  }
+   static subheadding({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.rakkas(
+      fontSize: size ?? 25.sp,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.maincolor,
+    );
+  }
+   static drawerbuttontext({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.lato(
+      fontSize: size ?? 10.sp,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.white,
+    );
+  }
+   static categorytext({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.rakkas(
+      fontSize: size ?? 20.sp,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.black,
+    );
+  }
+  
 }
