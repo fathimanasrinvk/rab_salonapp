@@ -13,6 +13,7 @@ class GLTextStyles {
   }
    static onboardingtext1({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.rakkas(
+
       fontSize: size ?? 24.sp,
       fontWeight: weight ?? FontWeight.normal,
       color: color ?? ColorTheme.black,

@@ -13,10 +13,7 @@ class LoginScreen extends StatelessWidget {
         image: AssetImage("assets/images/loginbg.png"),
     fit: BoxFit.cover,
     ),),
-      child: Column(
-        children: [
-        ],
-      ),)
+     )
     );
   }
 }
