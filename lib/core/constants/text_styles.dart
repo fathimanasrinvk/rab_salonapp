@@ -5,9 +5,23 @@ import 'package:rab_salon/core/constants/color_constants.dart';
 class GLTextStyles {
   static headding({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.rakkas(
-      fontSize: size ?? 30,
+      fontSize: size ?? 40,
       fontWeight: weight ?? FontWeight.normal,
-      color: color ?? ColorTheme.white,
+      color: color ?? ColorTheme.maincolor,
+    );
+  }
+   static onboardingtext1({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.rakkas(
+      fontSize: size ?? 24,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.black,
+    );
+  }
+  static onboardingtext2({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.rakkas(
+      fontSize: size ?? 15,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.black,
     );
   }
 }
