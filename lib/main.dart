@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:rab_salon/presentation/LoginScreen/view/login_screen.dart';
 
 void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false,home: HomePage(),));
+  runApp( MyApp());
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginScreen(),
+    );
   }
 }
