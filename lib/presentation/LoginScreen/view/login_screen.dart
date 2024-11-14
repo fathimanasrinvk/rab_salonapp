@@ -11,29 +11,29 @@ class LoginScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/loginbg.png',
-              fit: BoxFit.cover,
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(image: AssetImage('assets/images/loginbg.png'),fit: BoxFit.fill)
             ),
+            height: double.infinity, width: double.infinity,
           ),
-          Center(
+          SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.06),
+                  padding: EdgeInsets.only(top: size.height * 0.05),  // Reduced top padding
                   child: Text(
                     "RABELLA",
                     style: GLTextStyles.headding(),
                   ),
                 ),
-                SizedBox(height: size.height * 0.06),
+                SizedBox(height: size.height * 0.04),  // Reduced the space between RABELLA and the next text
                 Text(
                   "Unlock your beauty business with a single tap",
                   textAlign: TextAlign.center,
                   style: GLTextStyles.registertxt1(),
                 ),
-                SizedBox(height: size.height * 0.077),
+                SizedBox(height: size.height * 0.05),  // Reduced the space between the text and the form
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.height * 0.06),
                   child: CustomTextFormField(
@@ -59,7 +59,6 @@ class LoginScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: ColorTheme.maincolor,
-                      // color: ColorTheme.secondarycolor,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     width: double.infinity,
@@ -70,25 +69,33 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Register as owner text button
-                TextButton(
-                  onPressed: () {
-                    // Handle register action here
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("Register as an owner",
-                          style: GLTextStyles.registerbuttontext()),
-                      SizedBox(width: 5),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: ColorTheme.white,
-                        size: size.height * 0.02,
-                      ),
-                    ],
+                SizedBox(height: size.height * 0.03), // Add space between Login and Register button
+                // Wrap Row with an Expanded widget
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.height * 0.06),
+                  child: TextButton(
+                    onPressed: () {
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,  // Center the row content
+                      children: [
+                        Text(
+                          "Register as Owner",
+                          style: TextStyle(
+                            color: ColorTheme.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: ColorTheme.white,
+                          size: 18,
+                        ),
+                      ],
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ),
