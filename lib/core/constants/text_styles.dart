@@ -55,7 +55,7 @@ class GLTextStyles {
 
   static textformfieldtext({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.lato(
-      fontSize: size ?? 12,
+      fontSize: size ?? 14,
       fontWeight: weight ?? FontWeight.normal,
       color: color ?? ColorTheme.maincolor,
     );
