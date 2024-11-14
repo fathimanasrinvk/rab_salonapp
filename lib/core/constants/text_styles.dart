@@ -87,8 +87,8 @@ class GLTextStyles {
 
   static registertxt2({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.lato(
-      fontSize: size ?? 15,
-      fontWeight: weight ?? FontWeight.normal,
+      fontSize: size ?? 18,
+      fontWeight: weight ?? FontWeight.bold,
       color: color ?? ColorTheme.maincolor,
     );
   }

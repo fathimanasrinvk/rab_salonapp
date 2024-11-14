@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
+import 'package:rab_salon/presentation/company_registration_screen/widget/company_registration_textfield.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +29,7 @@ class CompanyDetailsScreen extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {},
@@ -41,18 +43,22 @@ class CompanyDetailsScreen extends StatelessWidget {
           elevation: 0,
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.only(
+              top: size.height * .08,
+              left: size.width * .05,
+              right: size.width * .05),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Share your company details to get started!",
-                style: TextStyle(fontSize: 18, color: Colors.brown.shade900),
+                style: GLTextStyles.registertxt2(),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
-              CustomTextField(label: "Company Name"),
-              CustomTextField(label: "Enter Your Address"),
+              SizedBox(height: size.height * 0.04),
+              CompanyRegistrationTextField(label: "Company Name"),
+              SizedBox(height: size.height * 0.02),
+              CompanyRegistrationTextField(label: "Enter Your Address"),
+              SizedBox(height: size.height * 0.02),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   labelText: "Select Your Location",
@@ -68,11 +74,14 @@ class CompanyDetailsScreen extends StatelessWidget {
                     .toList(),
                 onChanged: (value) {},
               ),
-              SizedBox(height: 10),
-              CustomTextField(label: "Enter Your Registration Number"),
-              CustomTextField(label: "Number of Owners"),
-              CustomTextField(label: "Number of Branches"),
-              SizedBox(height: 20),
+              SizedBox(height: size.height * 0.02),
+              CompanyRegistrationTextField(
+                  label: "Enter Your Registration Number"),
+              SizedBox(height: size.height * 0.02),
+              CompanyRegistrationTextField(label: "Number of Owners"),
+              SizedBox(height: size.height * 0.02),
+              CompanyRegistrationTextField(label: "Number of Branches"),
+              SizedBox(height: size.height * 0.02),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -88,27 +97,6 @@ class CompanyDetailsScreen extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  final String label;
-
-  const CustomTextField({required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 10.0),
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
           ),
         ),
       ),
