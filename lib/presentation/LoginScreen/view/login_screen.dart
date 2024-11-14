@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rab_salon/core/constants/text_styles.dart';
 
 import '../../../core/constants/color_constants.dart';
 

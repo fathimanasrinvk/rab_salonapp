@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 
+
 class GLTextStyles {
   static headding({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.rakkas(
