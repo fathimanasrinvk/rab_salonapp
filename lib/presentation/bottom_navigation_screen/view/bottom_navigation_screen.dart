@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
+import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: StatusNavigationBar(),
-  ));
-}
+
 
 class StatusNavigationBar extends StatefulWidget {
   const StatusNavigationBar({super.key});
@@ -19,8 +16,7 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
 
   // List of screens corresponding to the tab index
   final List<Widget> _screens = [
-    Container(
-        color: Colors.white, child: Center(child: Text("Work Board Screen"))),
+    ServiceScreen(),
     Container(
         color: Colors.white, child: Center(child: Text("Attendances Screen"))),
     Container(
