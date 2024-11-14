@@ -21,19 +21,19 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.05),  // Reduced top padding
+                  padding: EdgeInsets.only(top: size.height * 0.07),  // Reduced top padding
                   child: Text(
-                    "RABELLA",
+                    "RABLOON",
                     style: GLTextStyles.headding(),
                   ),
                 ),
-                SizedBox(height: size.height * 0.04),  // Reduced the space between RABELLA and the next text
+                SizedBox(height: size.height * 0.04),
                 Text(
                   "Unlock your beauty business with a single tap",
                   textAlign: TextAlign.center,
                   style: GLTextStyles.registertxt1(),
                 ),
-                SizedBox(height: size.height * 0.05),  // Reduced the space between the text and the form
+                SizedBox(height: size.height * 0.06),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.height * 0.06),
                   child: CustomTextFormField(
@@ -65,37 +65,11 @@ class LoginScreen extends StatelessWidget {
                     height: size.height * 0.052,
                     child: Center(
                       child: Text('Login',
-                          style: TextStyle(color: ColorTheme.white)),
+                          style:GLTextStyles.registerbuttontext()),
                     ),
                   ),
                 ),
-                SizedBox(height: size.height * 0.03), // Add space between Login and Register button
-                // Wrap Row with an Expanded widget
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.height * 0.06),
-                  child: TextButton(
-                    onPressed: () {
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,  // Center the row content
-                      children: [
-                        Text(
-                          "Register as Owner",
-                          style: TextStyle(
-                            color: ColorTheme.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(width: 5),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: ColorTheme.white,
-                          size: 18,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+
               ],
             ),
           ),
