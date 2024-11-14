@@ -3,22 +3,7 @@ import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
 import 'package:rab_salon/presentation/company_registration_screen/widget/company_registration_textfield.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
-      ),
-      home: CompanyDetailsScreen(),
-    );
-  }
-}
 
 class CompanyDetailsScreen extends StatelessWidget {
   @override
@@ -55,47 +40,33 @@ class CompanyDetailsScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: size.height * 0.04),
-              CompanyRegistrationTextField(label: "Company Name"),
+              CompanyRegistrationTextField(label: " Enter Company Name"),
               SizedBox(height: size.height * 0.02),
-              CompanyRegistrationTextField(label: "Enter Your Address"),
+              CompanyRegistrationTextField(label: "Enter Company Address"),
               SizedBox(height: size.height * 0.02),
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  labelText: "Select Your Location",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                items: ['Location 1', 'Location 2', 'Location 3']
-                    .map((location) => DropdownMenuItem(
-                          value: location,
-                          child: Text(location),
-                        ))
-                    .toList(),
-                onChanged: (value) {},
-              ),
+              CompanyRegistrationTextField(label: "Enter Company Location"),
               SizedBox(height: size.height * 0.02),
               CompanyRegistrationTextField(
-                  label: "Enter Your Registration Number"),
+                  label: "Enter Company Registration Number"),
               SizedBox(height: size.height * 0.02),
               CompanyRegistrationTextField(label: "Number of Owners"),
               SizedBox(height: size.height * 0.02),
               CompanyRegistrationTextField(label: "Number of Branches"),
-              SizedBox(height: size.height * 0.02),
-              ElevatedButton(
+              SizedBox(height: size.height * 0.03),
+              MaterialButton(
                 onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.brown.shade900,
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                color: ColorTheme.maincolor,
+
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
+                minWidth: size.width * .6, // Set the minimum width
+                height: size.height * .06, // Set the height
                 child: Text(
                   "Next",
-                  style: TextStyle(fontSize: 18),
+                  style: GLTextStyles.registerbuttontext(),
                 ),
-              ),
+              )
             ],
           ),
         ),

@@ -16,8 +16,25 @@ class CompanyRegistrationTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: label,
           labelStyle: GLTextStyles.textformfieldtext(),
-          border: OutlineInputBorder(
+          // Set default (enabled) border color
+          enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(color: ColorTheme.maincolor),
+          ),
+          // Set focused border color
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(color: ColorTheme.maincolor, width: 2.0),
+          ),
+          // Set error border color
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(color: ColorTheme.maincolor),
+          ),
+          // Set focused error border color
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(color: ColorTheme.maincolor, width: 2.0),
           ),
         ),
       ),
