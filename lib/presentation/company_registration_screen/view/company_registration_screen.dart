@@ -22,7 +22,7 @@ class CompanyDetailsScreen extends StatelessWidget {
                 Icons.arrow_back,
                 color: ColorTheme.maincolor,
               )),
-          title: Text("RABELLA", style: GLTextStyles.headding()),
+          title: Text("RABLOON", style: GLTextStyles.headding()),
           centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
