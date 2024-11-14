@@ -12,34 +12,52 @@ class ServiceScreen extends StatelessWidget {
     return Scaffold(
       // Drawer for the screen
       drawer: Drawer(
+        backgroundColor: ColorTheme.secondarycolor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+                decoration: BoxDecoration(),
+                child: Column(
+                  children: [
+                    Text(
+                      "RABLOON",
+                      style: GLTextStyles.subheadding(),
+                    ),
+                    Text("LOCATION", style: GLTextStyles.locationtext()),
+                  ],
+                )),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: size.height * .1,
                 ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
+                Text(
+                  "You haven't added any branches yet. ",
+                  style: GLTextStyles.greytxt(),
+                ),
+                Text(
+                  "Please add your branches. ",
+                  style: GLTextStyles.greytxt(),
+                ),
+                SizedBox(
+                  height: size.height * .1,
+                ),
+                MaterialButton(
+                  onPressed: () {},
+                  color: ColorTheme.maincolor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  minWidth: size.width * .6,
+                  height: size.height * .06,
+                  child: Text(
+                    "ADD YOUR BRANCHES",
+                    style: GLTextStyles.registerbuttontext(),
+                  ),
+                )
+              ],
             ),
           ],
         ),
@@ -70,8 +88,14 @@ class ServiceScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("No services added yet. Please add your service"),
-                Text(" to get started !")
+                Text(
+                  "No services added yet. Please add your service",
+                  style: GLTextStyles.greytxt(),
+                ),
+                Text(
+                  " to get started !",
+                  style: GLTextStyles.greytxt(),
+                )
               ],
             ),
           ),
@@ -79,8 +103,8 @@ class ServiceScreen extends StatelessWidget {
           // Positioned FloatingActionButton
           Positioned(
             bottom: size.height * .05, // Position from bottom of screen
-            right: size.width * .2,
-            left: size.width * .2, // Position from right side of screen
+            right: size.width * .25,
+            left: size.width * .25, // Position from right side of screen
             child: FloatingActionButton(
               backgroundColor: ColorTheme.maincolor,
               onPressed: () {},

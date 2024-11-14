@@ -60,8 +60,8 @@ class CompanyDetailsScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                minWidth: size.width * .6, // Set the minimum width
-                height: size.height * .06, // Set the height
+                minWidth: size.width * .6, 
+                height: size.height * .06, 
                 child: Text(
                   "Next",
                   style: GLTextStyles.registerbuttontext(),
