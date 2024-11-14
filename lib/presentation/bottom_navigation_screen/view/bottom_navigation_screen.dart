@@ -12,9 +12,9 @@ class StatusNavigationBar extends StatefulWidget {
 }
 
 class _StatusNavigationBarState extends State<StatusNavigationBar> {
-  int _selectedIndex = 0; // Track the selected tab index
+  int _selectedIndex = 0;
 
-  // List of screens corresponding to the tab index
+  
   final List<Widget> _screens = [
     ServiceScreen(),
     Container(
@@ -27,7 +27,7 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
         color: Colors.white, child: Center(child: Text("Settings Screen"))),
   ];
 
-  // List of images, text, and color for each bottom navigation item
+ 
   final List<Map<String, dynamic>> _navItems = [
     {
       "icon": "assets/images/serviceinactivebottom.png",
@@ -66,7 +66,7 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
     },
   ];
 
-  // Update the selected index when a bottom navigation item is clicked
+ 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -78,12 +78,12 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
     var size = MediaQuery.sizeOf(context);
 
     return Scaffold(
-      body: _screens[_selectedIndex], // Show the selected screen
+      body: _screens[_selectedIndex], 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: ColorTheme.maincolor, // Change background color
+        backgroundColor: ColorTheme.maincolor, 
         items: List.generate(_navItems.length, (index) {
           final item = _navItems[index];
           return BottomNavigationBarItem(
@@ -93,7 +93,7 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
               height: size.height * .03,
             ),
             label: item["text"],
-            // Change the text color based on selection
+           
             backgroundColor: Colors.white,
           );
         }),

@@ -119,7 +119,7 @@ class GLTextStyles {
 
   static flaotingbuttontext({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.lato(
-      fontSize: size ?? 20,
+      fontSize: size ?? 18,
       fontWeight: weight ?? FontWeight.bold,
       color: color ?? ColorTheme.white,
     );

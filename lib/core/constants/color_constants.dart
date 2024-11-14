@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorTheme {
   static Color maincolor = const Color(0xFF561C24);
-  static Color lightgrey = const Color(0xFFA3A3A3);
+  static Color lightgrey = const Color.fromARGB(255, 73, 72, 72);
   static Color secondarycolor = const Color(0xffE4D3D7);
 
   static Color white = Colors.white;
