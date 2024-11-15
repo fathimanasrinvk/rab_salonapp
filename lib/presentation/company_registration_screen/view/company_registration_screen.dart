@@ -19,7 +19,7 @@ class CompanyDetailsScreen extends StatelessWidget {
           leading: IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.arrow_back,
+                Icons.arrow_back_ios,
                 color: ColorTheme.maincolor,
               )),
           title: Text("RABLOON", style: GLTextStyles.headding()),
