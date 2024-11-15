@@ -63,11 +63,20 @@ class GLTextStyles {
 
   static textformfieldtext2({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.lato(
-      fontSize: size ?? 12,
+      fontSize: size ?? 13,
       fontWeight: weight ?? FontWeight.normal,
       color: color ?? ColorTheme.lightgrey,
     );
   }
+  static textformfieldtitle(
+      {double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.lato(
+      fontSize: size ?? 16,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.black,
+    );
+  }
+
 
   static registertxt1({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.lato(
