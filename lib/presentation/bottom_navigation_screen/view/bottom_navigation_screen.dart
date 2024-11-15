@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
-
-
 class StatusNavigationBar extends StatefulWidget {
   const StatusNavigationBar({super.key});
 
@@ -14,7 +12,6 @@ class StatusNavigationBar extends StatefulWidget {
 class _StatusNavigationBarState extends State<StatusNavigationBar> {
   int _selectedIndex = 0;
 
-  
   final List<Widget> _screens = [
     ServiceScreen(),
     Container(
@@ -27,11 +24,10 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
         color: Colors.white, child: Center(child: Text("Settings Screen"))),
   ];
 
- 
   final List<Map<String, dynamic>> _navItems = [
     {
       "icon": "assets/images/serviceinactivebottom.png",
-      "text": "Work Board",
+      "text": "Services",
       "activeIcon": "assets/images/serviceactivebottom.png",
       "activeColor": ColorTheme.black,
       "inactiveColor": ColorTheme.white,
@@ -66,7 +62,6 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
     },
   ];
 
- 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -78,12 +73,12 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
     var size = MediaQuery.sizeOf(context);
 
     return Scaffold(
-      body: _screens[_selectedIndex], 
+      body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: ColorTheme.maincolor, 
+        backgroundColor: ColorTheme.maincolor,
         items: List.generate(_navItems.length, (index) {
           final item = _navItems[index];
           return BottomNavigationBarItem(
@@ -93,7 +88,6 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
               height: size.height * .03,
             ),
             label: item["text"],
-           
             backgroundColor: Colors.white,
           );
         }),
