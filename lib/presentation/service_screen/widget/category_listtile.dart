@@ -23,79 +23,76 @@ class _ServiceListState extends State<ServiceList> {
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
 
-    return Expanded(
-      child: ListView.builder(
-        itemCount: widget.services.length,
-        itemBuilder: (context, index) {
-          bool isExpanded = _expandedIndex == index;
+    return ListView.builder(
+      itemCount: widget.services.length,
+      itemBuilder: (context, index) {
+        bool isExpanded = _expandedIndex == index;
 
-          return Padding(
-            padding: EdgeInsets.only(bottom: size.height * .016),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  ListTile(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: size.height * .016),
-                    title: Center(
-                      child: Text(
-                        widget.services[index],
-                        style: GLTextStyles.categorytext(),
-                      ),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        if (_expandedIndex == index) {
-                          _expandedIndex = null;
-                        } else {
-                          _expandedIndex = index;
-                        }
-                      });
-                    },
-                  ),
-                  if (isExpanded)
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: size.width * .02),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            // Row 1
-                            buildRow(context, size),
-                            SizedBox(height: size.height * .01),
-                            // Row 2
-                            buildRow(context, size),
-                            SizedBox(height: size.height * .01),
-                            // Row 3
-                            buildRow(context, size),
-                            SizedBox(height: size.height * .02),
-                          ],
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+        return Padding(
+          padding: EdgeInsets.only(bottom: size.height * .016),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                ),
+              ],
             ),
-          );
-        },
-      ),
+            child: Column(
+              children: [
+                ListTile(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: size.height * .016),
+                  title: Center(
+                    child: Text(
+                      widget.services[index],
+                      style: GLTextStyles.categorytext(),
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      if (_expandedIndex == index) {
+                        _expandedIndex = null;
+                      } else {
+                        _expandedIndex = index;
+                      }
+                    });
+                  },
+                ),
+                if (isExpanded)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .02),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          // Row 1
+                          buildRow(context, size),
+                          SizedBox(height: size.height * .01),
+                          // Row 2
+                          buildRow(context, size),
+                          SizedBox(height: size.height * .01),
+                          // Row 3
+                          buildRow(context, size),
+                          SizedBox(height: size.height * .02),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
   Widget buildRow(BuildContext context, Size size) {
-    return Container(
+    return SizedBox(
       height: size.height * .15,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

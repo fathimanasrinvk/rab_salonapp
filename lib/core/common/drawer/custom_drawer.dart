@@ -29,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
               ],
             ),
           ),
-          if (branches.isNotEmpty) ...[
+          if (branches.isEmpty) ...[
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

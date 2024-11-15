@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
+import 'package:rab_salon/presentation/employees_screen/view/employees_screen.dart';
 import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
 class StatusNavigationBar extends StatefulWidget {
@@ -14,8 +15,7 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
 
   final List<Widget> _screens = [
     ServiceScreen(),
-    Container(
-        color: Colors.white, child: Center(child: Text("Attendances Screen"))),
+    EmployeesScreen(),
     Container(
         color: Colors.white, child: Center(child: Text("Projects Screen"))),
     Container(
