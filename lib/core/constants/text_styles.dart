@@ -152,8 +152,8 @@ class GLTextStyles {
 
   static drawerbuttontext({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.lato(
-      fontSize: size ?? 10,
-      fontWeight: weight ?? FontWeight.normal,
+      fontSize: size ?? 15,
+      fontWeight: weight ?? FontWeight.bold,
       color: color ?? ColorTheme.white,
     );
   }
