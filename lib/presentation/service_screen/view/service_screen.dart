@@ -9,13 +9,13 @@ import 'package:rab_salon/presentation/service_screen/widget/search_bar.dart';
 
 class ServiceScreen extends StatelessWidget {
   final List<Map<String, String>> branches = [
-    {"branchName": "Branch 1", "location": "Downtown"},
-    {"branchName": "Branch 2", "location": "Uptown"},
+    {"branchName": " BRANCH", "location": "DOWNTOWN"},
+    {"branchName": "BRANCH", "location": "DOWNTOWN"},
   ];
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.sizeOf(context);
+    var size = MediaQuery.of(context).size;
 
     return Scaffold(
       drawer: CustomDrawer(size: size, branches: branches),
@@ -34,58 +34,42 @@ class ServiceScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text("Your Salon Services", style: GLTextStyles.subheadding2()),
+            SizedBox(height: size.height * 0.03),
+
+            // Static Search Bar
+            SearchBarService(),
+            SizedBox(height: size.height * 0.04),
+
             Expanded(
               child: Consumer<ServiceController>(
                 builder: (context, serviceProvider, child) {
-                  // Show loading indicator while loading
+                  // Loading indicator
                   if (serviceProvider.isLoading) {
                     return Center(child: CircularProgressIndicator());
                   }
 
-                  // Show message if no services are found
-                  if (serviceProvider.filteredServices.isEmpty) {
-                    return Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("No services found.",
-                              style: GLTextStyles.greytxt()),
-                          Text("Add new services to get started!",
-                              style: GLTextStyles.greytxt()),
-                          SizedBox(height: size.height * 0.02),
-                          FloatingActionButton.extended(
-                            backgroundColor: ColorTheme.maincolor,
-                            onPressed: () {
-                              // Action to add services
-                            },
-                            label: Text(
-                              "Add Your Services",
-                              style: GLTextStyles.flaotingbuttontext(),
-                            ),
-                          ),
-                        ],
-                      ),
+                  // No services found
+                  if (serviceProvider.filteredServices.isNotEmpty) {
+                    return ServiceList(
+                      services: serviceProvider.filteredServices,
+                      onTap: (service) {
+                        print("Tapped on $service");
+                      },
                     );
                   }
 
-                  // Show the service list when data is available
-                  return Column(
-                    children: [
-                      Text("Your Salon Services",
-                          style: GLTextStyles.subheadding2()),
-                      SizedBox(height: size.height * 0.03),
-
-                      // Search Bar
-                      SearchBarService(),
-                      SizedBox(height: size.height * 0.04),
-
-                      ServiceList(
-                        services: serviceProvider.filteredServices,
-                        onTap: (service) {
-                          print("Tapped on $service");
-                        },
-                      )
-                    ],
+                  // Show services
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text("No services found.",
+                            style: GLTextStyles.greytxt()),
+                        Text("Add new services to get started!",
+                            style: GLTextStyles.greytxt()),
+                      ],
+                    ),
                   );
                 },
               ),
