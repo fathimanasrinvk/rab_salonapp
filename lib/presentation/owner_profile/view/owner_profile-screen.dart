@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
+import '../../partner_adding_screen/view/partners_adding_screen.dart';
 
 void main(){
   runApp(MaterialApp(home: MyScreen(),));
@@ -52,13 +53,13 @@ class _MyScreenState extends State<MyScreen> {
                 }, size),
                 SizedBox(height:size.height*0.028),
                 _buildEditableField('Phone Number', phoneController, isEditingPhone, () {
-                  setState(() {
+                  setState((){
                     isEditingPhone = !isEditingPhone;
                   });
                 }, size),
                 SizedBox(height:size.height*0.028),
                 _buildEditableField('Email', emailController, isEditingEmail, () {
-                  setState(() {
+                  setState((){
                     isEditingEmail = !isEditingEmail;
                   });
                 }, size),
@@ -69,10 +70,23 @@ class _MyScreenState extends State<MyScreen> {
                   });
                 }, size),
                 SizedBox(height:size.height*0.07),
-                _buildButton('ADD SALOON PARTNERS',size),
+                _buildButton(
+                  'ADD SALOON PARTNERS',
+                  size,
+                      () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PartnersAddingScreen()),
+                    );
+                  },
+                ),
                 SizedBox(height:size.height*0.02),
-                _buildButton('MAKE ME AS AN EMPLOYEE',size),
-              ],
+                _buildButton(
+                  'MAKE ME AS AN EMPLOYEE',
+                  size,
+                      () {
+                  },
+                ),              ],
             ),
           ),
         ),
@@ -107,7 +121,7 @@ class _MyScreenState extends State<MyScreen> {
                   ],
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,  // Ensures no gap between text field and button
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: isEditing
@@ -149,10 +163,11 @@ class _MyScreenState extends State<MyScreen> {
 
 
 
-  Widget _buildButton(String text,Size size  ) {
+
+  Widget _buildButton(String text, Size size, VoidCallback onPressed){
     return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
+      onPressed: onPressed,
+      style:ElevatedButton.styleFrom(
         backgroundColor:ColorTheme.secondarycolor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -161,8 +176,8 @@ class _MyScreenState extends State<MyScreen> {
       ),
       child: Center(
         child: Text(
-          text,
-          style: GLTextStyles.registertxt2()
+            text,
+            style: GLTextStyles.registertxt2()
         ),
       ),
     );

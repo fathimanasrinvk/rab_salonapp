@@ -156,49 +156,49 @@ class SalonServiceForm extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.only(top: size.height * 0.014),
                                   child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8.0),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.1),
-                                            spreadRadius: 2,
-                                            blurRadius: 4,
-                                            offset: Offset(5, 5),
-                                          ),
-                                        ],
-                                      ),
-                                      child: DropdownButtonFormField<String>(
-                                        decoration: InputDecoration(
-                                          hintText: 'Select Gender',
-                                          labelStyle: TextStyle(color: Colors.black),
-                                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                                          contentPadding: EdgeInsets.symmetric(
-                                            horizontal: MediaQuery.of(context).size.width * 0.05,
-                                            vertical: MediaQuery.of(context).size.height * 0.015,
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8.0),
-                                            borderSide: BorderSide(color: Colors.transparent),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8.0),
-                                            borderSide: BorderSide(color: Colors.transparent),
-                                          ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: Offset(5, 5),
                                         ),
-                                        value: 'Women',
-                                        items: ['Women', 'Men', 'Other']
-                                            .map((gender) => DropdownMenuItem(
-                                          value: gender,
-                                          child: Text(gender),
-                                        ))
-                                            .toList(),
-                                        onChanged: (value) {
-                                          // Handle gender selection
-                                        },
-                                        isExpanded: true, // Ensures dropdown takes full width available
-                                      )
-
+                                      ],
+                                    ),
+                                    child: DropdownButtonFormField<String>(
+                                      isExpanded: true,
+                                      isDense: true,
+                                      decoration: InputDecoration(
+                                        hintText: 'Select Gender',
+                                        labelStyle: TextStyle(color: Colors.black),
+                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                        contentPadding: EdgeInsets.symmetric(
+                                          horizontal: size.width * 0.04,
+                                          vertical: size.height * 0.01,
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(8.0),
+                                          borderSide: BorderSide(color: Colors.transparent),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(8.0),
+                                          borderSide: BorderSide(color: Colors.transparent),
+                                        ),
+                                      ),
+                                      value: 'Women',
+                                      items: ['Women', 'Men', 'Other']
+                                          .map((gender) => DropdownMenuItem(
+                                        value: gender,
+                                        child: Text(gender),
+                                      ))
+                                          .toList(),
+                                      onChanged: (value) {
+                                        // Handle gender selection
+                                      },
+                                    ),
                                   ),
                                 ),
                               ],
@@ -214,7 +214,10 @@ class SalonServiceForm extends StatelessWidget {
 
             // Positioned buttons at the bottom
             Padding(
-              padding: EdgeInsets.only(left: size.width * 0.02, right: size.width * 0.02,),
+              padding: EdgeInsets.only(
+                left: size.width * 0.02,
+                right: size.width * 0.02,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
