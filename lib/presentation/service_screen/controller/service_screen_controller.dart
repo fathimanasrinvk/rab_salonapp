@@ -14,10 +14,7 @@ class ServiceController with ChangeNotifier {
   bool isLoading = false;
 
   ServiceController() {
-    // Initialize with all services
     filteredServices = allServices;
-
-    // Listen to search input changes
     searchController.addListener(() {
       searchServices(searchController.text);
     });
@@ -27,7 +24,7 @@ class ServiceController with ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(milliseconds: 500), () {
       filteredServices = allServices
           .where(
               (service) => service.toLowerCase().contains(query.toLowerCase()))
