@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
+import 'package:rab_salon/presentation/bottom_navigation_screen/view/bottom_navigation_screen.dart';
 import '../../../core/common/TextFoemFields/custom_textform_fields.dart';
 import '../../../core/constants/color_constants.dart';
 
-class LoginScreen extends StatelessWidget {
+class OwnerRegistrationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
@@ -31,21 +32,29 @@ class LoginScreen extends StatelessWidget {
                     style: GLTextStyles.headding(),
                   ),
                 ),
-                SizedBox(height: size.height * 0.04),
+                SizedBox(height: size.height * 0.03),
                 Text(
                   "Unlock your beauty business with a single tap",
                   textAlign: TextAlign.center,
                   style: GLTextStyles.registertxt1(),
                 ),
-                SizedBox(height: size.height * 0.06),
+                SizedBox(height: size.height * 0.045),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: size.height * 0.06),
                   child: CustomTextFormField(
-                    hintText: "Username",
+                    hintText: "Enter Your Name",
                     prefixIcon: Icons.person,
                   ),
                 ),
                 SizedBox(height: size.height * 0.01),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.height * 0.06,vertical: size.height * 0.02,
+                  ),
+                  child: CustomTextFormField(
+                    hintText: "Email", prefixIcon: Icons.mail,
+                  ),
+                ),
+
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: size.height * 0.06,
@@ -62,17 +71,22 @@ class LoginScreen extends StatelessWidget {
                     horizontal: size.height * 0.06,
                     vertical: size.height * 0.03,
                   ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorTheme.maincolor,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    width: double.infinity,
-                    height: size.height * 0.052,
-                    child: Center(
-                      child: Text(
-                        'Login',
-                        style: GLTextStyles.registerbuttontext(),
+                  child: GestureDetector(
+                    onTap: (){
+                      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>StatusNavigationBar()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: ColorTheme.maincolor,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      width: double.infinity,
+                      height: size.height * 0.052,
+                      child: Center(
+                        child: Text(
+                          'Register',
+                          style: GLTextStyles.registerbuttontext(),
+                        ),
                       ),
                     ),
                   ),

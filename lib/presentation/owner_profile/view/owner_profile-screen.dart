@@ -3,9 +3,6 @@ import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
 import '../../partner_adding_screen/view/partners_adding_screen.dart';
 
-void main(){
-  runApp(MaterialApp(home: MyScreen(),));
-}
 
 
 class MyScreen extends StatefulWidget {
@@ -103,59 +100,61 @@ class _MyScreenState extends State<MyScreen> {
           style: GLTextStyles.textformfieldtitle(),
         ),
         SizedBox(height: size.height * 0.01),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: size.height * 0.02),
-                decoration: BoxDecoration(
-                  color: ColorTheme.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 2,
-                      blurRadius: 4,
-                      offset: Offset(5, 5),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: isEditing
-                          ? TextFormField(
-                        controller: controller,
-                        style: GLTextStyles.textformfieldtext2(),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      )
-                          : TextField(
-                        readOnly: true,
-                        controller: controller,
-                        style: GLTextStyles.textformfieldtext(),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
+        SingleChildScrollView(
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: size.height * 0.02),
+                  decoration: BoxDecoration(
+                    color: ColorTheme.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: Offset(5, 5),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: isEditing
+                            ? TextFormField(
+                          controller: controller,
+                          style: GLTextStyles.textformfieldtext2(),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        )
+                            : TextField(
+                          readOnly: true,
+                          controller: controller,
+                          style: GLTextStyles.textformfieldtext(),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      color: ColorTheme.maincolor,
-                      icon: Icon(isEditing ? Icons.save : Icons.edit),
-                      onPressed: () {
-                        if (isEditing) {
-                          print('$label saved: ${controller.text}');
-                        }
-                        onEditPressed();
-                      },
-                    ),
-                  ],
+                      IconButton(
+                        color: ColorTheme.maincolor,
+                        icon: Icon(isEditing ? Icons.save : Icons.edit),
+                        onPressed: () {
+                          if (isEditing) {
+                            print('$label saved: ${controller.text}');
+                          }
+                          onEditPressed();
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
