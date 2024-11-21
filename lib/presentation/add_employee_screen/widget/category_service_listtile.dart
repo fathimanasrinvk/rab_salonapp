@@ -34,18 +34,26 @@ class CategoryServiceList extends StatelessWidget {
             ],
           ),
           child: ExpansionTile(
-            title: Text(
-              category,
-              style: GLTextStyles.categorytext(),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    category,
+                    style: GLTextStyles.categorytext(),
+                  ),
+                ),
+              ],
+            ),
+            trailing: Icon(
+              Icons.expand_more,
+              color: Colors.black,
             ),
             children: [
               Padding(
                 padding: EdgeInsets.all(size.width * 0.05),
                 child: Wrap(
-                  spacing:
-                      size.width * 0.03, // Horizontal spacing between items
-                  runSpacing:
-                      size.height * 0.02, // Vertical spacing between rows
+                  spacing: size.width * 0.03, // Horizontal spacing between items
+                  runSpacing: size.height * 0.02, // Vertical spacing between rows
                   children: categoryServices.map((service) {
                     return Container(
                       width: (size.width - size.width * 0.2) / 3, // Adjust size
