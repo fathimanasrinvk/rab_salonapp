@@ -39,7 +39,7 @@ class GLTextStyles {
 
   static saveandnewbutton({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.rakkas(
-      fontSize: size ?? 15,
+      fontSize: size ?? 16,
       fontWeight: weight ?? FontWeight.normal,
       color: color ?? ColorTheme.maincolor,
     );
@@ -147,6 +147,13 @@ class GLTextStyles {
       fontSize: size ?? 25,
       fontWeight: weight ?? FontWeight.normal,
       color: color ?? ColorTheme.maincolor,
+    );
+  }
+  static parrtnerlist({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.rakkas(
+      fontSize: size ?? 22,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.white,
     );
   }
 

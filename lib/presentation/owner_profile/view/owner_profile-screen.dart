@@ -1,184 +1,156 @@
 import 'package:flutter/material.dart';
-import 'package:rab_salon/core/constants/color_constants.dart';
-import 'package:rab_salon/core/constants/text_styles.dart';
+import 'package:provider/provider.dart';
+import '../../../core/constants/color_constants.dart';
+import '../../../core/constants/text_styles.dart';
 import '../../partner_adding_screen/view/partners_adding_screen.dart';
+import '../../show_partners_screen/view/show_partners_screen .dart';
+import '../controller/owner_profile_controller.dart';
 
-
-
-class MyScreen extends StatefulWidget {
-  @override
-  _MyScreenState createState() => _MyScreenState();
-}
-
-class _MyScreenState extends State<MyScreen> {
-  // Controllers for each field
-  final  ownerController = TextEditingController();
-  final  phoneController = TextEditingController();
-  final  emailController = TextEditingController();
-  final  aadharController = TextEditingController();
-
-  bool isEditingOwner = false;
-  bool isEditingPhone = false;
-  bool isEditingEmail = false;
-  bool isEditingAadhar = false;
-
+class OwnerProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<OwnerProfileController>(context);
     var size = MediaQuery.sizeOf(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: ColorTheme.white,
-        title: Text(
-            'RABLOON',
-            style: GLTextStyles.subheadding()
-        ),centerTitle: true,
+        title: Text('RABLOON', style: GLTextStyles.subheadding()),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       backgroundColor: Colors.white,
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: size.height*0.03),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: size.height*0.02),
-                _buildEditableField('Owner Name', ownerController, isEditingOwner, () {
-                  setState(() {
-                    isEditingOwner = !isEditingOwner;
-                  });
-                }, size),
-                SizedBox(height:size.height*0.028),
-                _buildEditableField('Phone Number', phoneController, isEditingPhone, () {
-                  setState((){
-                    isEditingPhone = !isEditingPhone;
-                  });
-                }, size),
-                SizedBox(height:size.height*0.028),
-                _buildEditableField('Email', emailController, isEditingEmail, () {
-                  setState((){
-                    isEditingEmail = !isEditingEmail;
-                  });
-                }, size),
-                SizedBox(height:size.height*0.028),
-                _buildEditableField('Aadhar number', aadharController, isEditingAadhar, () {
-                  setState(() {
-                    isEditingAadhar = !isEditingAadhar;
-                  });
-                }, size),
-                SizedBox(height:size.height*0.07),
-                _buildButton(
-                  'ADD SALOON PARTNERS',
-                  size,
-                      () {
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.07, vertical: size.height * 0.02),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildEditableField("Owner Name", controller.ownerName, (value) => controller.updateField(0, value), size, 0),
+              SizedBox(height: size.height * 0.02),
+              buildEditableField("Phone Number", controller.phone, (value) => controller.updateField(1, value), size, 1),
+              SizedBox(height: size.height * 0.02),
+              buildEditableField("Email", controller.email, (value) => controller.updateField(2, value), size, 2),
+              SizedBox(height: size.height * 0.02),
+              buildEditableField("Aadhar Number", controller.aadhar, (value) => controller.updateField(3, value), size, 3),
+              SizedBox(height: size.height * 0.04),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ColorTheme.secondarycolor,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                ),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddPartnerScreen(),
+                  ),
+                ),
+                child: Center(child: Text("Add Salon Partners", style: GLTextStyles.registertxt2())),
+              ),
+              SizedBox(height: size.height * 0.02),
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ColorTheme.secondarycolor,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                ),
+                onPressed: () {},
+                child: Center(child: Text("Make Me as an Employee", style: GLTextStyles.registertxt2())),
+              ),
+              SizedBox(height: size.height * 0.02),
+              if (controller.partners.isNotEmpty)
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorTheme.secondarycolor,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                  ),
+                  onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PartnersAddingScreen()),
+                      MaterialPageRoute(
+                        builder: (context) => ShowPartnersScreen(partners: controller.partners),
+                      ),
                     );
                   },
+                  child: Center(child: Text("Show Partners", style: GLTextStyles.registertxt2())),
                 ),
-                SizedBox(height:size.height*0.02),
-                _buildButton(
-                  'MAKE ME AS AN EMPLOYEE',
-                  size,
-                      () {
-                  },
-                ),              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildEditableField(String label, TextEditingController controller, bool isEditing, VoidCallback onEditPressed, Size size) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: GLTextStyles.textformfieldtitle(),
-        ),
-        SizedBox(height: size.height * 0.01),
-        SingleChildScrollView(
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: size.height * 0.02),
-                  decoration: BoxDecoration(
-                    color: ColorTheme.white,
-                    borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 2,
-                        blurRadius: 4,
-                        offset: Offset(5, 5),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: isEditing
-                            ? TextFormField(
-                          controller: controller,
-                          style: GLTextStyles.textformfieldtext2(),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        )
-                            : TextField(
-                          readOnly: true,
-                          controller: controller,
-                          style: GLTextStyles.textformfieldtext(),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      IconButton(
-                        color: ColorTheme.maincolor,
-                        icon: Icon(isEditing ? Icons.save : Icons.edit),
-                        onPressed: () {
-                          if (isEditing) {
-                            print('$label saved: ${controller.text}');
-                          }
-                          onEditPressed();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),
-      ],
+      ),
     );
   }
 
+  Widget buildEditableField(String label, String value, Function(String) onSave, Size size, int index) {
+    return Consumer<OwnerProfileController>(builder: (context, controller, child) {
+      bool isEditable = controller.editingFieldIndex == index; // Check if this field is being edited
 
-
-
-  Widget _buildButton(String text, Size size, VoidCallback onPressed){
-    return ElevatedButton(
-      onPressed: onPressed,
-      style:ElevatedButton.styleFrom(
-        backgroundColor:ColorTheme.secondarycolor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        padding: EdgeInsets.symmetric(vertical: size.width*0.04),
-      ),
-      child: Center(
-        child: Text(
-            text,
-            style: GLTextStyles.registertxt2()
-        ),
-      ),
-    );
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: size.height * 0.01),
+            child: Text(label, style: GLTextStyles.textformfieldtitle()),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: size.height * 0.01),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+              decoration: BoxDecoration(
+                color: ColorTheme.white,
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 2,
+                    blurRadius: 4,
+                    offset: Offset(5, 5),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: isEditable
+                        ? TextFormField(
+                      initialValue: value,
+                      onChanged: onSave,
+                      style: GLTextStyles.textformfieldtext2(),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                      ),
+                    )
+                        : Text(
+                      value,
+                      style: GLTextStyles.textformfieldtext2(),
+                    ),
+                  ),
+                  IconButton(
+                    color: ColorTheme.maincolor,
+                    icon: Icon(isEditable ? Icons.save : Icons.edit),
+                    onPressed: () {
+                      if (isEditable) {
+                        // Save the changes and stop editing
+                        controller.setEditingField(null); // Clear the editing index
+                      } else {
+                        // Start editing this field
+                        controller.setEditingField(index);
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
