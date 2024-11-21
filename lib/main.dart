@@ -16,7 +16,7 @@ import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => AddEmployeeProvider()),
+    ChangeNotifierProvider(create: (_) => AddEmployeeController()),
       ChangeNotifierProvider(create: (_) => ServiceController()),
   ], child: MyApp()));
 }
@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      
-     home: EmployeeProfileOwnerScreen(),
+      home: AddEmployeeScreen(),
+      // home: EmployeeProfileOwnerScreen(),
       // home: OnboardingScreen(),
     );
   }
