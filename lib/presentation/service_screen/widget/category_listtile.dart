@@ -107,27 +107,29 @@ class _ServiceListState extends State<ServiceList> {
         scrollDirection: Axis.horizontal,
         itemCount: 5, // Add more items as needed
         itemBuilder: (context, rowIndex) {
-          return Container(
-            height: size.height * .15,
-            width: size.width * .29,
-            margin: EdgeInsets.only(right: size.width * .02),
-            decoration: BoxDecoration(
-              color: ColorTheme.secondarycolor, // Light pink color
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Hair Color",
-                    style: GLTextStyles.onboardbottomcardtxt(
-                        weight: FontWeight.bold)),
-                Text("Women",
-                    style: GLTextStyles.onboardbottomcardtxt(
-                        weight: FontWeight.bold)),
-                Text("₹500",
-                    style: GLTextStyles.onboardbottomcardtxt(
-                        weight: FontWeight.bold)),
-              ],
+          return Flexible(
+            child: Container(
+              height: size.height * .15,
+              width: size.width * .29,
+              margin: EdgeInsets.only(right: size.width * .02),
+              decoration: BoxDecoration(
+                color: ColorTheme.secondarycolor, // Light pink color
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Hair Color",
+                      style: GLTextStyles.onboardbottomcardtxt(
+                          weight: FontWeight.bold)),
+                  Text("Women",
+                      style: GLTextStyles.onboardbottomcardtxt(
+                          weight: FontWeight.bold)),
+                  Text("₹500",
+                      style: GLTextStyles.onboardbottomcardtxt(
+                          weight: FontWeight.bold)),
+                ],
+              ),
             ),
           );
         },

@@ -7,14 +7,12 @@ class EditableTextField extends StatelessWidget {
   final TextEditingController controller;
   final String initialText;
   final ValueNotifier<bool> isEditing;
-  final Function toggleEditMode;
 
   EditableTextField({
     required this.label,
     required this.controller,
     required this.initialText,
     required this.isEditing,
-    required this.toggleEditMode,
   });
 
   @override
@@ -45,9 +43,9 @@ class EditableTextField extends StatelessWidget {
             children: [
               ValueListenableBuilder<bool>(
                 valueListenable: isEditing,
-                builder: (context, isEditing, child) {
+                builder: (context, isEditingValue, child) {
                   return Expanded(
-                    child: isEditing
+                    child: isEditingValue
                         ? TextField(
                             controller: controller,
                             obscureText: label.toLowerCase() == "password" ? true : false,
@@ -64,13 +62,24 @@ class EditableTextField extends StatelessWidget {
                   );
                 },
               ),
-              IconButton(
-                icon: Icon(
-                  isEditing.value ? Icons.check : Icons.edit,
-                  color: ColorTheme.maincolor,
-                ),
-                onPressed: () {
-                  toggleEditMode();
+              ValueListenableBuilder<bool>(
+                valueListenable: isEditing,
+                builder: (context, isEditingValue, child) {
+                  return IconButton(
+                    icon: Icon(
+                      isEditingValue ? Icons.check : Icons.edit,
+                      color: ColorTheme.maincolor,
+                    ),
+                    onPressed: () {
+                      if (isEditing.value) {
+                        // Save changes
+                        isEditing.value = false;
+                      } else {
+                        // Enable editing
+                        isEditing.value = true;
+                      }
+                    },
+                  );
                 },
               ),
             ],
