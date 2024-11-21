@@ -15,9 +15,9 @@ import 'package:rab_salon/presentation/service_screen/controller/service_screen_
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => AddEmployeeController()),
-    //  ChangeNotifierProvider(create: (_) => EmployeeProfileOwnerController()),
     ChangeNotifierProvider(create: (_) => OwnerProfileController()),
     ChangeNotifierProvider(create: (_) => AddPartnerController()),
+    ChangeNotifierProvider(create: (_) => ServiceController()),
 
   ], child: MyApp()));
 }
@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      // home: AddEmployeeScreen(),
       home: OwnerProfileScreen(),
       // home: EmployeeProfileOwnerScreen(),
       // home: OnboardingScreen(),
