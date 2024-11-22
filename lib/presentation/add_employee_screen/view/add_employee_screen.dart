@@ -1,186 +1,373 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-// Mock Data Model for Service
-class Service {
-  final String name;
-  final String category;
-  final String price;
-
-  Service({required this.name, required this.category, required this.price});
-}
-
-// Provider for managing state
-class AddEmployeeProvider with ChangeNotifier {
-  int? expandedCategoryIndex;
-
-  void toggleCategoryExpansion(int index) {
-    if (expandedCategoryIndex == index) {
-      expandedCategoryIndex =
-          null; // Collapse if the same category is clicked again
-    } else {
-      expandedCategoryIndex = index;
-    }
-    notifyListeners();
-  }
-
-  bool isCategoryExpanded(int index) {
-    return expandedCategoryIndex == index;
-  }
-}
+import 'package:rab_salon/core/constants/color_constants.dart';
+import 'package:rab_salon/core/constants/text_styles.dart';
+import 'package:rab_salon/presentation/add_employee_screen/controller/add_employee_controller.dart';
 
 class AddEmployeeScreen extends StatelessWidget {
+  final List<String> categories = [
+    "Hair Color",
+    "Nail Care",
+    "Facial Treatment",
+    "Skin Care",
+    "Massage",
+    "Waxing",
+    "Makeup",
+  ];
+
+  final Map<String, List<String>> services = {
+    "Hair Color": ["Service 1", "Service 2", "Service 3", "Service 4"],
+    "Nail Care": ["Service 1", "Service 2", "Service 3"],
+    "Facial Treatment": ["Service 1", "Service 2", "Service 3"],
+    "Skin Care": ["Service 1", "Service 2", "Service 3"],
+    "Massage": ["Service 1", "Service 2", "Service 3"],
+    "Waxing": ["Service 1", "Service 2", "Service 3"],
+    "Makeup": ["Service 1", "Service 2", "Service 3"],
+  };
+
   @override
   Widget build(BuildContext context) {
-    // Mock service data grouped by categories
-    Map<String, List<Service>> categoryServices = {
-      "Hair Services": [
-        Service(name: "Haircut", category: "Hair Services", price: "\$15"),
-        Service(name: "Shave", category: "Hair Services", price: "\$10"),
-      ],
-      "Nail Services": [
-        Service(name: "Manicure", category: "Nail Services", price: "\$20"),
-        Service(name: "Pedicure", category: "Nail Services", price: "\$25"),
-      ],
-      "Skin Services": [
-        Service(name: "Facial", category: "Skin Services", price: "\$30"),
-        Service(name: "Peel", category: "Skin Services", price: "\$35"),
-      ],
-    };
-
-    return ChangeNotifierProvider(
-      create: (context) => AddEmployeeProvider(),
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('RABLOON',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Text('LOCATION',
-                  style: TextStyle(fontSize: 14, color: Colors.grey)),
-            ],
-          ),
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.black),
-            onPressed: () {},
-          ),
+    var size = MediaQuery.sizeOf(context);
+    final controller =
+        Provider.of<AddEmployeeController>(context, listen: false);
+    // Check if any services exist in the map
+    bool hasServices =
+        services.values.any((serviceList) => serviceList.isNotEmpty);
+    return Scaffold(
+      backgroundColor: ColorTheme.white,
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('RABLOON', style: GLTextStyles.subheadding()),
+        backgroundColor: ColorTheme.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        body: Column(
-          children: [
-            // Header
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Add Your Employees',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      ),
+      body: Form(
+        key: controller.formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
+          child: ListView(
+            children: [
+              Text("Add Your Employee", style: GLTextStyles.subheadding2()),
+              buildTextField(
+                "Employee Name",
+                controller.employeeNameController,
+                "Enter employee's full name",
+                size,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Employee name is required';
+                  }
+                  return null;
+                },
               ),
-            ),
-            // Flexible Category List
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Consumer<AddEmployeeProvider>(
-                  builder: (context, provider, child) {
-                    return ListView.builder(
-                      itemCount: categoryServices.keys.length,
-                      itemBuilder: (context, index) {
-                        String category =
-                            categoryServices.keys.elementAt(index);
-                        bool isExpanded = provider.isCategoryExpanded(index);
-
-                        return GestureDetector(
-                          onTap: () {
-                            provider.toggleCategoryExpansion(index);
+              Row(
+                children: [
+                  Expanded(
+                    child: buildTextField(
+                      "User Name",
+                      controller.userNameController,
+                      "Enter username",
+                      size,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Username is required';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(width: size.width * 0.03),
+                  Expanded(
+                    child: buildTextField(
+                      "Password",
+                      controller.passwordController,
+                      "Enter password",
+                      size,
+                      isPassword: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password is required';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Consumer<AddEmployeeController>(
+                builder: (context, controller, child) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (controller.selectedServices.isNotEmpty)
+                        Padding(
+                          padding: EdgeInsets.only(top: size.height * 0.03),
+                          child: Text("Selected Services",
+                              style: GLTextStyles.textformfieldtitle()),
+                        ),
+                      ...controller.selectedServices.map(
+                        (service) => GestureDetector(
+                          onLongPress: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text("Delete Service",
+                                    style: GLTextStyles.textformfieldtitle()),
+                                content: Text(
+                                    "Are you sure you want to remove this service?",
+                                    style: GLTextStyles.textformfieldtitle()),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(
+                                          context); // Close the dialog
+                                    },
+                                    child: Text("Cancel",
+                                        style:
+                                            GLTextStyles.textformfieldtitle()),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      controller.removeService(service);
+                                      Navigator.pop(
+                                          context); // Close the dialog
+                                    },
+                                    child: Text("Delete",
+                                        style:
+                                            GLTextStyles.textformfieldtitle()),
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                           child: Card(
-                            margin: EdgeInsets.symmetric(vertical: 8.0),
-                            elevation: 3,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
+                            elevation: 3,
+                            child: Container(
+                              color: ColorTheme.secondarycolor,
+                              padding: EdgeInsets.all(size.height * 0.01),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Category Header
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(category,
-                                          style: TextStyle(fontSize: 16)),
-                                      Icon(
-                                        isExpanded
-                                            ? Icons.expand_less
-                                            : Icons.expand_more,
-                                        color: Colors.black54,
-                                      ),
-                                    ],
+                                  Text(
+                                    "Service: $service",
+                                    style: GLTextStyles.onboardbottomcardtxt(),
                                   ),
-                                  // Expanded Services Grid
-                                  if (isExpanded)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 12.0),
-                                      child: ConstrainedBox(
-                                        constraints: BoxConstraints(
-                                          maxHeight:
-                                              200, // Adjust maxHeight as per your design.
+                                  Text(
+                                    "Category: Women",
+                                    style: GLTextStyles.onboardbottomcardtxt(),
+                                  ),
+                                  Text(
+                                    "Price: ₹500",
+                                    style: GLTextStyles.onboardbottomcardtxt(),
+                                  ),
+                                  SizedBox(height: size.height * 0.01),
+                                  Text(
+                                    "Enter Percentage:",
+                                    style: GLTextStyles.textformfieldtitle(),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 2),
                                         ),
-                                        child: GridView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 2,
-                                            crossAxisSpacing: 8.0,
-                                            mainAxisSpacing: 8.0,
-                                            childAspectRatio: 3 / 2,
-                                          ),
-                                          itemCount: categoryServices[category]!
-                                              .length,
-                                          itemBuilder: (context, gridIndex) {
-                                            Service service = categoryServices[
-                                                category]![gridIndex];
-                                            return Card(
-                                              elevation: 2,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(service.name,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 14)),
-                                                    SizedBox(height: 4),
-                                                    Text(service.price,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color:
-                                                                Colors.grey)),
-                                                  ],
-                                                ),
-                                              ),
-                                            );
-                                          },
+                                      ],
+                                    ),
+                                    child: TextFormField(
+                                      controller: controller
+                                          .percentageControllers[service],
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        hintText: "Enter percentage",
+                                        hintStyle:
+                                            GLTextStyles.textformfieldtext2(),
+                                        border: InputBorder.none,
+                                        contentPadding: EdgeInsets.symmetric(
+                                          horizontal: size.width * 0.05,
+                                          vertical: size.height * 0.015,
                                         ),
+                                      ),
+                                      onChanged: (value) {
+                                        controller.updateServicePercentage(
+                                            service, value);
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              SizedBox(height: size.height * 0.03),
+              if (hasServices) ...[
+                Text("Service List", style: GLTextStyles.textformfieldtitle()),
+                SizedBox(height: size.height * 0.03),
+                Container(
+                  decoration: BoxDecoration(
+                    color: ColorTheme.secondarycolor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        offset: Offset(0, 4),
+                        blurRadius: 8,
+                        spreadRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon:
+                          Icon(Icons.search, color: ColorTheme.lightgrey),
+                      hintText: "Search for services...",
+                      hintStyle: GLTextStyles.greytxt(),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: size.height * 0.02,
+                        horizontal: size.width * 0.04,
+                      ),
+                    ),
+                    onChanged: (query) {
+                      context
+                          .read<AddEmployeeController>()
+                          .updateSearchQuery(query);
+                    },
+                  ),
+                ),
+                SizedBox(height: size.height * 0.03),
+                Consumer<AddEmployeeController>(
+                  builder: (context, controller, child) {
+                    String searchQuery = controller.searchQuery.toLowerCase();
+                    List<String> filteredCategories = categories
+                        .where((category) =>
+                            category.toLowerCase().contains(searchQuery))
+                        .toList();
+
+                    if (filteredCategories.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "Your searched service is not available",
+                          style: GLTextStyles.bottomtxt2()
+                              .copyWith(color: Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    }
+
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: filteredCategories.length,
+                      itemBuilder: (context, index) {
+                        String category = filteredCategories[index];
+                        bool isExpanded =
+                            controller.expandedCategories[category] ?? false;
+
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Card(
+                            color: ColorTheme.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            elevation: 5,
+                            child: InkWell(
+                              onTap: () => controller.toggleCategory(category),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text(category,
+                                        style: GLTextStyles.categorytext()),
+                                  ),
+                                  AnimatedSize(
+                                    duration: Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut,
+                                    child: Visibility(
+                                      visible: isExpanded,
+                                      child: Column(
+                                        children: services[category]!
+                                            .where((service) => service
+                                                .toLowerCase()
+                                                .contains(searchQuery))
+                                            .map((service) => Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                    vertical: 4.0,
+                                                    horizontal: 16.0,
+                                                  ),
+                                                  child: Card(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                    ),
+                                                    elevation: 3,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        controller
+                                                            .toggleServiceSelection(
+                                                                service);
+                                                      },
+                                                      child: Container(
+                                                        color: controller
+                                                                .selectedServices
+                                                                .contains(
+                                                                    service)
+                                                            ? Colors
+                                                                .green.shade100
+                                                            : ColorTheme
+                                                                .secondarycolor,
+                                                        padding: EdgeInsets.all(
+                                                            size.height * 0.01),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              "Service: $service",
+                                                              style: GLTextStyles
+                                                                  .onboardbottomcardtxt(),
+                                                            ),
+                                                            Text(
+                                                              "Category: Women",
+                                                              style: GLTextStyles
+                                                                  .onboardbottomcardtxt(),
+                                                            ),
+                                                            Text(
+                                                              "Price: ₹500",
+                                                              style: GLTextStyles
+                                                                  .onboardbottomcardtxt(),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ))
+                                            .toList(),
                                       ),
                                     ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -190,6 +377,69 @@ class AddEmployeeScreen extends StatelessWidget {
                     );
                   },
                 ),
+              ] else
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: size.height * 0.05),
+                    child: Text(
+                      "No services added",
+                      style: GLTextStyles.bottomtxt2()
+                          .copyWith(color: Colors.grey),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        color: ColorTheme.white,
+        padding: EdgeInsets.symmetric(
+          horizontal: size.width * 0.07,
+          vertical: size.height * 0.02,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  // Handle Save and New
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorTheme.maincolor,
+                      width: 1,
+                    ),
+                    color: ColorTheme.white,
+                  ),
+                  height: size.height * 0.05,
+                  child: Center(
+                    child: Text(
+                      'SAVE AND NEW',
+                      style: GLTextStyles.saveandnewbutton(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: size.width * 0.05), // Add spacing between buttons
+            Expanded(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorTheme.maincolor,
+                  ),
+                  height: size.height * 0.05,
+                  child: Center(
+                    child: Text(
+                      'SAVE EMPLOYEE',
+                      style: GLTextStyles.onboardingandsavebutton(),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -197,245 +447,55 @@ class AddEmployeeScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget buildTextField(
+    String label,
+    TextEditingController controller,
+    String hintText,
+    Size size, {
+    bool isPassword = false,
+    String? Function(String?)? validator,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: size.height * 0.03),
+          child: Text(label, style: GLTextStyles.textformfieldtitle()),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: size.height * 0.014),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 4,
+                  offset: Offset(5, 5),
+                ),
+              ],
+            ),
+            child: TextFormField(
+              textInputAction: TextInputAction.next,
+              controller: controller,
+              obscureText: isPassword,
+              decoration: InputDecoration(
+                hintText: hintText,
+                hintStyle: GLTextStyles.textformfieldtext2(),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.05,
+                  vertical: size.height * 0.015,
+                ),
+              ),
+              validator: validator,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:rab_salon/core/constants/color_constants.dart';
-// import 'package:rab_salon/core/constants/text_styles.dart';
-// import 'package:rab_salon/presentation/add_employee_screen/controller/add_employee_controller.dart';
-
-// class AddEmployeeScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     // Mock data from backend (replace this with actual data from the backend)
-
-//     // Mock data from backend (replace this with actual data from the backend)
-//     List<Map<String, dynamic>> serviceList = [
-//       {
-//         "category": "Hair Services",
-//         "services": ["Haircut", "Hair Coloring", "Hair Spa"]
-//       },
-//       {
-//         "category": "Nail Services",
-//         "services": ["Manicure", "Pedicure", "Nail Art"]
-//       },
-//       {
-//         "category": "Skin Services",
-//         "services": ["Facial", "Waxing", "Threading"]
-//       },
-//     ];
-
-//     var size = MediaQuery.of(context).size;
-
-//     return Scaffold(
-//       resizeToAvoidBottomInset: false,
-//       backgroundColor: ColorTheme.white,
-//       appBar: AppBar(
-//         centerTitle: true,
-//         title: Column(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             Text('RABLOON', style: GLTextStyles.subheadding()),
-//             Text('LOCATION', style: GLTextStyles.locationtext()),
-//           ],
-//         ),
-//         backgroundColor: Colors.white,
-//         elevation: 0,
-//         leading: IconButton(
-//           icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
-//           onPressed: () {},
-//         ),
-//       ),
-//       body: Column(
-//         children: [
-//           Expanded(
-//             child: SingleChildScrollView(
-//               child: Padding(
-//                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Padding(
-//                       padding: EdgeInsets.only(top: size.height * 0.05),
-//                       child: Text('Add Your Salon Employees',
-//                           style: GLTextStyles.subheadding2()),
-//                     ),
-//                     // Employee Name Field
-//                     Padding(
-//                       padding: EdgeInsets.only(top: size.height * 0.04),
-//                       child: Text('Employee Name',
-//                           style: GLTextStyles.textformfieldtitle()),
-//                     ),
-//                     Padding(
-//                       padding: EdgeInsets.only(top: size.height * 0.014),
-//                       child: Container(
-//                         decoration: BoxDecoration(
-//                           color: Colors.white,
-//                           borderRadius: BorderRadius.circular(8.0),
-//                           boxShadow: [
-//                             BoxShadow(
-//                               color: Colors.black.withOpacity(0.1),
-//                               spreadRadius: 2,
-//                               blurRadius: 4,
-//                               offset: Offset(5, 5),
-//                             ),
-//                           ],
-//                         ),
-//                         child: TextFormField(
-//                           decoration: InputDecoration(
-//                             hintText: 'Enter Your Employee Name',
-//                             hintStyle: GLTextStyles.textformfieldtext2(),
-//                             border: InputBorder.none,
-//                             contentPadding: EdgeInsets.symmetric(
-//                                 horizontal: size.width * 0.05,
-//                                 vertical: size.height * 0.015),
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                     SizedBox(height: size.height * 0.03),
-//                     Row(
-//                       children: [
-//                         Expanded(
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               Text('User Name',
-//                                   style: GLTextStyles.textformfieldtitle()),
-//                               Padding(
-//                                 padding:
-//                                     EdgeInsets.only(top: size.height * 0.014),
-//                                 child: Container(
-//                                   decoration: BoxDecoration(
-//                                     color: Colors.white,
-//                                     borderRadius: BorderRadius.circular(8.0),
-//                                     boxShadow: [
-//                                       BoxShadow(
-//                                         color: Colors.black.withOpacity(0.1),
-//                                         spreadRadius: 2,
-//                                         blurRadius: 4,
-//                                         offset: Offset(5, 5),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                   child: TextFormField(
-//                                     keyboardType: TextInputType.text,
-//                                     decoration: InputDecoration(
-//                                       hintText: 'User Name',
-//                                       hintStyle:
-//                                           GLTextStyles.textformfieldtext2(),
-//                                       border: InputBorder.none,
-//                                       contentPadding: EdgeInsets.symmetric(
-//                                           horizontal: size.width * 0.05,
-//                                           vertical: size.height * 0.015),
-//                                     ),
-//                                   ),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                         SizedBox(width: size.width * 0.05),
-//                         Expanded(
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               Text('Password',
-//                                   style: GLTextStyles.textformfieldtitle()),
-//                               Padding(
-//                                 padding:
-//                                     EdgeInsets.only(top: size.height * 0.014),
-//                                 child: Container(
-//                                   decoration: BoxDecoration(
-//                                     color: Colors.white,
-//                                     borderRadius: BorderRadius.circular(8.0),
-//                                     boxShadow: [
-//                                       BoxShadow(
-//                                         color: Colors.black.withOpacity(0.1),
-//                                         spreadRadius: 2,
-//                                         blurRadius: 4,
-//                                         offset: Offset(5, 5),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                   child: TextFormField(
-//                                     obscureText: true,
-//                                     decoration: InputDecoration(
-//                                       hintText: 'Password',
-//                                       hintStyle:
-//                                           GLTextStyles.textformfieldtext2(),
-//                                       border: InputBorder.none,
-//                                       contentPadding: EdgeInsets.symmetric(
-//                                           horizontal: size.width * 0.05,
-//                                           vertical: size.height * 0.015),
-//                                     ),
-//                                   ),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     SizedBox(height: size.height * 0.03),
-//                     Text('Service List',
-//                         style: GLTextStyles.textformfieldtitle()),
-//                     SizedBox(height: size.height * 0.02),
-//                     // Service List
-//                     ListView.builder(
-//                       physics: NeverScrollableScrollPhysics(),
-//                       shrinkWrap: true, // Ensures it fits in available space
-//                       itemCount: serviceList.length,
-//                       itemBuilder: (context, index) {
-//                         return Container(
-//                           margin: EdgeInsets.symmetric(
-//                               vertical: size.height * 0.005),
-//                           decoration: BoxDecoration(
-//                             color: Colors.white,
-//                             borderRadius: BorderRadius.circular(12.0),
-//                             boxShadow: [
-//                               BoxShadow(
-//                                 color: Colors.black.withOpacity(0.1),
-//                                 spreadRadius: 1,
-//                                 blurRadius: 5,
-//                                 offset: Offset(2, 2),
-//                               ),
-//                             ],
-//                           ),
-//                           child: ExpansionTile(
-//                             title: Text(
-//                               serviceList[index]["category"],
-//                               style: GLTextStyles.textformfieldtitle(),
-//                             ),
-//                             children: serviceList[index]["services"]
-//                                 .map<Widget>(
-//                                   (service) => Card(
-//                                     margin: EdgeInsets.symmetric(
-//                                         vertical: size.height * 0.005,
-//                                         horizontal: size.width * 0.05),
-//                                     child: Padding(
-//                                       padding:
-//                                           EdgeInsets.all(size.width * 0.03),
-//                                       child: Text(
-//                                         service,
-//                                         style: GLTextStyles.subheadding2(),
-//                                       ),
-//                                     ),
-//                                   ),
-//                                 )
-//                                 .toList(),
-//                           ),
-//                         );
-//                       },
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

@@ -17,7 +17,7 @@ void main() {
     ChangeNotifierProvider(create: (_) => AddEmployeeController()),
     ChangeNotifierProvider(create: (_) => OwnerProfileController()),
     ChangeNotifierProvider(create: (_) => AddPartnerController()),
-    ChangeNotifierProvider(create: (_) => ServiceController()),
+    ChangeNotifierProvider(create: (_) => ServiceScreenController()),
 
   ], child: MyApp()));
 }
