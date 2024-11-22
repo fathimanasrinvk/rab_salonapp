@@ -22,6 +22,22 @@ class OwnerProfileScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              controller.isEditing ? Icons.save : Icons.edit,
+              color: ColorTheme.maincolor,
+            ),
+            onPressed: () {
+              if (controller.isEditing) {
+                // Save all changes
+                controller.toggleEditMode(); // Stop editing
+              } else {
+                controller.toggleEditMode(); // Start editing
+              }
+            },
+          ),
+        ],
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -50,10 +66,9 @@ class OwnerProfileScreen extends StatelessWidget {
                     builder: (context) => AddPartnerScreen(),
                   ),
                 ),
-                child: Center(child: Text("Add Salon Partners", style: GLTextStyles.registertxt2())),
+                child: Center(child: Text("ADD SALON PARTNERS ", style: GLTextStyles.registertxt2())),
               ),
               SizedBox(height: size.height * 0.02),
-
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ColorTheme.secondarycolor,
@@ -61,7 +76,7 @@ class OwnerProfileScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
                 ),
                 onPressed: () {},
-                child: Center(child: Text("Make Me as an Employee", style: GLTextStyles.registertxt2())),
+                child: Center(child: Text("MAKE ME AS AN EMPLOYEE", style: GLTextStyles.registertxt2())),
               ),
               SizedBox(height: size.height * 0.02),
               if (controller.partners.isNotEmpty)
@@ -75,11 +90,11 @@ class OwnerProfileScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ShowPartnersScreen(partners: controller.partners),
+                        builder: (context) => ShowPartnersScreen(),
                       ),
                     );
                   },
-                  child: Center(child: Text("Show Partners", style: GLTextStyles.registertxt2())),
+                  child: Center(child: Text("SHOW PARTNERS", style: GLTextStyles.registertxt2())),
                 ),
             ],
           ),
@@ -90,7 +105,7 @@ class OwnerProfileScreen extends StatelessWidget {
 
   Widget buildEditableField(String label, String value, Function(String) onSave, Size size, int index) {
     return Consumer<OwnerProfileController>(builder: (context, controller, child) {
-      bool isEditable = controller.editingFieldIndex == index; // Check if this field is being edited
+      bool isEditable = controller.isEditing; // Check if all fields should be editable
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +117,7 @@ class OwnerProfileScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: size.height * 0.01),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04,),
               decoration: BoxDecoration(
                 color: ColorTheme.white,
                 borderRadius: BorderRadius.circular(8.0),
@@ -131,19 +146,6 @@ class OwnerProfileScreen extends StatelessWidget {
                       value,
                       style: GLTextStyles.textformfieldtext2(),
                     ),
-                  ),
-                  IconButton(
-                    color: ColorTheme.maincolor,
-                    icon: Icon(isEditable ? Icons.save : Icons.edit),
-                    onPressed: () {
-                      if (isEditable) {
-                        // Save the changes and stop editing
-                        controller.setEditingField(null); // Clear the editing index
-                      } else {
-                        // Start editing this field
-                        controller.setEditingField(index);
-                      }
-                    },
                   ),
                 ],
               ),

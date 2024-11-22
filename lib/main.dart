@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: AddEmployeeScreen(),
-      home: OwnerProfileScreen(),
-      // home: EmployeeProfileOwnerScreen(),
+      // home: OwnerProfileScreen(),
+      home: EmployeeProfileOwnerScreen(),
       // home: OnboardingScreen(),
     );
   }

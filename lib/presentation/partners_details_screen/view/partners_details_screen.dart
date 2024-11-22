@@ -1,85 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:rab_salon/core/constants/color_constants.dart';
+import 'package:provider/provider.dart';
+import '../../../core/constants/color_constants.dart';
 import '../../../core/constants/text_styles.dart';
+import '../../owner_profile/controller/owner_profile_controller.dart';
 
-class PartnersDetailsScreen extends StatelessWidget {
-  final Map<String, String> partner;
+class AddedPartnerDetailsScreen extends StatelessWidget {
+  final Map<String, String> partnerDetails;
+  final int partnerIndex;
 
-  const PartnersDetailsScreen({required this.partner, Key? key})
-      : super(key: key);
-
-  // Function to show the edit dialog and handle form update
-  void _editPartner(BuildContext context) {
-    final TextEditingController nameController =
-    TextEditingController(text: partner["Partner Name"]);
-    final TextEditingController emailController =
-    TextEditingController(text: partner["Email"]);
-    final TextEditingController usernameController =
-    TextEditingController(text: partner["User Name"]);
-    final TextEditingController passwordController =
-    TextEditingController(text: partner["Password"]);
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Edit Partner', style: GLTextStyles.subheadding()),
-          content: SingleChildScrollView(
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: nameController,
-                  decoration: InputDecoration(labelText: "Partner Name"),
-                ),
-                TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(labelText: "Email"),
-                ),
-                TextFormField(
-                  controller: usernameController,
-                  decoration: InputDecoration(labelText: "Username"),
-                ),
-                TextFormField(
-                  controller: passwordController,
-                  decoration: InputDecoration(labelText: "Password"),
-                ),
-              ],
-            ),
-          ),
-          actions: [
-        SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-          child: Row(
-              children:[TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Cancel',style: GLTextStyles.saveandnewbutton(),),
-              ),
-
-                TextButton(
-                  onPressed: () {
-                    // Update the data
-                    partner["Partner Name"] = nameController.text;
-                    partner["Email"] = emailController.text;
-                    partner["User Name"] = usernameController.text;
-                    partner["Password"] = passwordController.text;
-
-                    // Close the dialog
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Save',style: GLTextStyles.saveandnewbutton()),
-                ),]),
-        ),
-        ],
-        );
-      },
-    );
-  }
+  const AddedPartnerDetailsScreen({Key? key, required this.partnerDetails, required this.partnerIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final controller = Provider.of<OwnerProfileController>(context);  // Get the controller to access isEditing
+    var size = MediaQuery.sizeOf(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -96,37 +30,108 @@ class PartnersDetailsScreen extends StatelessWidget {
           },
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.06),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              partner["Partner Name"] ?? "",
-              style: GLTextStyles.saveandnewbutton(),
-            ),
-            SizedBox(height: size.height * 0.02),
-            Text(
-              "Email: ${partner["Email"] ?? ""}",
-              style: GLTextStyles.textformfieldtitle(),
-            ),
-            Text(
-              "Username: ${partner["User Name"] ?? ""}",
-              style: GLTextStyles.textformfieldtitle(),
-            ),
-            Text(
-              "Password: ${partner["Password"] ?? ""}",
-              style: GLTextStyles.textformfieldtitle(),
-            ),
-            SizedBox(height: size.height * 0.02),
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () => _editPartner(context),
+      body: SingleChildScrollView(  // Wrap the body with SingleChildScrollView
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: size.height * 0.042),
+                child: Container(
+                  width: size.width * 0.85,
+                  padding: EdgeInsets.symmetric(vertical: size.height * 0.03),
+                  decoration: BoxDecoration(
+                    color: ColorTheme.secondarycolor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: partnerDetails.entries.map((entry) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: size.height * 0.02),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                              child: Text(
+                                  entry.key,
+                                  style: GLTextStyles.textformfieldtitle()
+                              ),
+                            ),
+                            SizedBox(height: size.height * 0.01),
+                            Container(
+                              width: size.width * 0.75, // Fixed width
+                              height: size.height * 0.062, // Fixed height for all containers
+                              margin: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                              padding: EdgeInsets.symmetric( horizontal: size.width * 0.04),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    blurRadius: 5,
+                                    spreadRadius: 2,
+                                  ),
+                                ],
+                              ),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: controller.isEditing
+                                    ? TextFormField(
+                                  initialValue: entry.value,
+                                  onChanged: (value) {
+                                    partnerDetails[entry.key] = value; // Update the local partner details
+                                  },
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Edit ${entry.key}',
+                                  ),
+                                )
+                                    : Text(
+                                  entry.value,
+                                  style: GLTextStyles.textformfieldtext(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: size.height * 0.05), // To ensure there's enough space at the bottom
+              Padding(
+                padding: EdgeInsets.only(right: size.width * 0.07, bottom: size.height * 0.03),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    width: size.width * 0.15,
+                    height: size.height * 0.12,
+                    decoration: BoxDecoration(
+                      color: ColorTheme.secondarycolor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        controller.isEditing ? Icons.save : Icons.edit,
+                        color: ColorTheme.maincolor,
+                      ),
+                      onPressed: () {
+                        if (controller.isEditing) {
+                          // Save the updated partner if we're in editing mode
+                          controller.updatePartner(partnerIndex, partnerDetails);
+                        }
+                        // Toggle the edit mode
+                        controller.toggleEditMode();
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

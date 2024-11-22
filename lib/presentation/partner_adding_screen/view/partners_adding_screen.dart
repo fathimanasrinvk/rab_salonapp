@@ -14,6 +14,7 @@ class AddPartnerScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorTheme.white,
       resizeToAvoidBottomInset: false,
+
       appBar: AppBar(
         centerTitle: true,
         title: Text('RABLOON', style: GLTextStyles.subheadding()),

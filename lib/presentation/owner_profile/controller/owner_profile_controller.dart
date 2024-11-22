@@ -11,13 +11,8 @@ class OwnerProfileController with ChangeNotifier {
 
   List<Map<String, String>> partners = [];
 
-  // Set the editing field index
-  void setEditingField(int? index) {
-    editingFieldIndex = index;
-    notifyListeners();
-  }
 
-  // Update the field value
+
   void updateField(int index, String value) {
     if (index == 0) {
       ownerName = value;
@@ -36,4 +31,18 @@ class OwnerProfileController with ChangeNotifier {
     partners.add(partner);
     notifyListeners();
   }
+
+  // Method to update partner data
+  void updatePartner(int index, Map<String, String> updatedPartner) {
+    partners[index] = updatedPartner;
+    notifyListeners();
+  }
+  bool isEditing = false;  // To track if we are in edit mode
+
+  // Method to toggle edit mode
+  void toggleEditMode() {
+    isEditing = !isEditing;
+    notifyListeners();
+  }
+
 }

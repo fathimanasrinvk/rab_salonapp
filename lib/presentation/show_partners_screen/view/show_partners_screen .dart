@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../core/constants/color_constants.dart';
 import '../../../core/constants/text_styles.dart';
+import '../../owner_profile/controller/owner_profile_controller.dart';
 import '../../partners_details_screen/view/partners_details_screen.dart';
 
 class ShowPartnersScreen extends StatelessWidget {
-  final List<Map<String, String>> partners;
-
-  const ShowPartnersScreen({Key? key, required this.partners}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final controller = Provider.of<OwnerProfileController>(context);
+    var size = MediaQuery.sizeOf(context);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: ColorTheme.white,
+
       appBar: AppBar(
         centerTitle: true,
         title: Text('PARTNERS', style: GLTextStyles.subheadding()),
@@ -28,22 +27,24 @@ class ShowPartnersScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.07,vertical: size.height*0.02),
-        itemCount: partners.length,
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.07,vertical: size.height*0.02),
+
+      itemCount: controller.partners.length,
         itemBuilder: (context, index) {
-          final partner = partners[index];
+          final partner = controller.partners[index];
           return GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PartnersDetailsScreen(partner: partner),
+                  builder: (context) => AddedPartnerDetailsScreen(partnerDetails: partner, partnerIndex: index,),
                 ),
               );
             },
             child: Padding(
               padding: EdgeInsets.only(top: size.height * 0.022),
               child: Container(
+
                 decoration: BoxDecoration(
                   color: ColorTheme.maincolor,
                   borderRadius: BorderRadius.circular(12),
@@ -56,6 +57,7 @@ class ShowPartnersScreen extends StatelessWidget {
                   ],
                 ),
                 padding: EdgeInsets.all(size.width * 0.034),
+
                 child: Center(
                   child: Text(
                     partner["Partner Name"] ?? "",
