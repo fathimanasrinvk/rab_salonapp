@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
+import 'package:rab_salon/core/constants/text_styles.dart';
 import 'package:rab_salon/presentation/employees_screen/view/employees_screen.dart';
 import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
@@ -91,9 +92,8 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
             backgroundColor: Colors.white,
           );
         }),
-        selectedLabelStyle:
-            TextStyle(color: _navItems[_selectedIndex]['activeColor']),
-        unselectedLabelStyle: TextStyle(color: Colors.grey),
+        selectedLabelStyle: GLTextStyles.bottomtxt2(),
+        unselectedLabelStyle: GLTextStyles.bottomtxt2(),
         selectedItemColor: _navItems[_selectedIndex]['activeColor'],
         unselectedItemColor: ColorTheme.white,
       ),

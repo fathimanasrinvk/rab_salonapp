@@ -1,36 +1,20 @@
 import 'package:flutter/material.dart';
 
-class ServiceController with ChangeNotifier {
-  final TextEditingController searchController = TextEditingController();
-  List<String> allServices = [
-    "Hair Color",
-    "Haircut",
-    "Manicure",
-    "Pedicure",
-    "Massage",
-    "Facial"
-  ];
-  List<String> filteredServices = [];
-  bool isLoading = false;
+class ServiceScreenController with ChangeNotifier {
+  Map<String, bool> _expandedCategories = {};
+  String _searchQuery = "";
 
-  ServiceController() {
-    filteredServices = allServices;
-    searchController.addListener(() {
-      searchServices(searchController.text);
-    });
+  Map<String, bool> get expandedCategories => _expandedCategories;
+  String get searchQuery => _searchQuery;
+
+  void toggleCategory(String category) {
+    _expandedCategories[category] = !(_expandedCategories[category] ?? false);
+    notifyListeners();
   }
 
-  void searchServices(String query) {
-    isLoading = true;
+  void updateSearchQuery(String query) {
+    _searchQuery = query;
     notifyListeners();
-
-    Future.delayed(Duration(milliseconds: 500), () {
-      filteredServices = allServices
-          .where(
-              (service) => service.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-      isLoading = false;
-      notifyListeners();
-    });
   }
 }
+

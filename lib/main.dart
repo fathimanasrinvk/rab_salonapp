@@ -11,14 +11,15 @@ import 'package:rab_salon/presentation/owner_profile/view/owner_profile-screen.d
 import 'package:rab_salon/presentation/partner_adding_screen/controller/add_partner_controller.dart';
 import 'package:rab_salon/presentation/service_adding_screen/view/service_adding_screen.dart';
 import 'package:rab_salon/presentation/service_screen/controller/service_screen_controller.dart';
+import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
+import 'package:rab_salon/presentation/service_screen/widget/category_listtile.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => AddEmployeeController()),
     ChangeNotifierProvider(create: (_) => OwnerProfileController()),
     ChangeNotifierProvider(create: (_) => AddPartnerController()),
-    ChangeNotifierProvider(create: (_) => ServiceController()),
-
+    ChangeNotifierProvider(create: (_) => ServiceScreenController()),
   ], child: MyApp()));
 }
 
@@ -27,9 +28,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: AddEmployeeScreen(),
-      home: OwnerProfileScreen(),
-      // home: EmployeeProfileOwnerScreen(),
+      //home: StatusNavigationBar(),
+       home: OwnerProfileScreen(),
+      //  home: EmployeeProfileOwnerScreen(),
       // home: OnboardingScreen(),
     );
   }
