@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
+import 'package:rab_salon/presentation/branch_list_screen/controller/branch_list_screen_controller.dart';
 
 class BranchListScreen extends StatelessWidget {
-  final List<Map<String, String>> subBranches = [
-    {"branchName": "CABELLLO", "location": "LOCATION"},
-    {"branchName": "CABELLLO", "location": "LOCATION"},
-    {"branchName": "CABELLLO", "location": "LOCATION"},
-  ];
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -62,24 +58,35 @@ class BranchListScreen extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             Text("Sub Branches", style: GLTextStyles.subheadding2()),
             SizedBox(height: size.height * 0.01),
+            // Use Consumer to listen to the state changes and rebuild UI
             Expanded(
-              child: ListView.builder(
-                itemCount: subBranches.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onLongPress: () => _showAlertDialog(
-                      context,
-                      subBranches[index]["branchName"]!,
-                      subBranches[index]["location"]!,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: size.height * 0.02),
-                      child: _buildBranchCard(
-                        size,
-                        subBranches[index]["branchName"]!,
-                        subBranches[index]["location"]!,
-                      ),
-                    ),
+              child: Consumer<BranchListScreenController>(
+                builder: (context, branchLisScreenController, child) {
+                  return ListView.builder(
+                    itemCount: branchLisScreenController.subBranches.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onLongPress: () => _showAlertDialog(
+                          context,
+                          branchLisScreenController.subBranches[index]
+                              ["branchName"]!,
+                          branchLisScreenController.subBranches[index]
+                              ["location"]!,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: size.height * 0.02),
+                          child: _buildBranchCardWithDeleteIcon(
+                            size,
+                            branchLisScreenController.subBranches[index]
+                                ["branchName"]!,
+                            branchLisScreenController.subBranches[index]
+                                ["location"]!,
+                            index,
+                            branchLisScreenController,
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -132,7 +139,12 @@ class BranchListScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBranchCard(Size size, String branchName, String location) {
+  Widget _buildBranchCardWithDeleteIcon(
+      Size size,
+      String branchName,
+      String location,
+      int index,
+      BranchListScreenController branchLisScreenController) {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: size.height * 0.01,
@@ -142,14 +154,18 @@ class BranchListScreen extends StatelessWidget {
         color: ColorTheme.maincolor,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(branchName,
-              style: GLTextStyles.subheadding(color: ColorTheme.white)),
-          SizedBox(height: size.height * 0.005),
-          Text(location, style: GLTextStyles.drawerbuttontext()),
-        ],
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(branchName,
+            style: GLTextStyles.subheadding(color: ColorTheme.white)),
+        subtitle: Text(location, style: GLTextStyles.drawerbuttontext()),
+        trailing: IconButton(
+          icon: Icon(Icons.delete, color: ColorTheme.white),
+          onPressed: () {
+            // Call the delete method from BranchProvider
+            branchLisScreenController.deleteBranch(index);
+          },
+        ),
       ),
     );
   }

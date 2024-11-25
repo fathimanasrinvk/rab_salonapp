@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-class CompanyProfileController {
+class CompanyProfileController with ChangeNotifier{
+    bool _isBranchAdded = false;
+     
   final TextEditingController companyNameController = TextEditingController();
   final TextEditingController registrationNumberController =
       TextEditingController();
@@ -116,8 +118,11 @@ void toggleNumberofEmployee () {
     numberofEmployeeController.text = initialNumberofEmployee ;
   }
 }
+
+  // ValueNotifier to track if branches are added
   final ValueNotifier<bool> isBranchAdded = ValueNotifier<bool>(false);
 
+  // Function to mark branch as added
   void markBranchAsAdded() {
     isBranchAdded.value = true;
   }

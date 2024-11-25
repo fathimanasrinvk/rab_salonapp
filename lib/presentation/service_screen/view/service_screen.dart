@@ -149,6 +149,17 @@ class ServiceScreen extends StatelessWidget {
                                                     GLTextStyles.categorytext(),
                                               ),
                                             ),
+                                            Expanded(
+                                              child: IconButton(
+                                                icon: Icon(Icons.delete),
+                                                onPressed: () {
+                                                  context
+                                                      .read<
+                                                          ServiceScreenController>()
+                                                      .removeCategory(category);
+                                                },
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -200,6 +211,22 @@ class ServiceScreen extends StatelessWidget {
                                                                   "Price: ₹500",
                                                                   style: GLTextStyles
                                                                       .onboardbottomcardtxt()),
+                                                              IconButton(
+                                                                icon: Icon(
+                                                                    Icons
+                                                                        .delete,
+                                                                    color: ColorTheme
+                                                                        .maincolor),
+                                                                onPressed: () {
+                                                                  // Handle delete service
+                                                                  context
+                                                                      .read<
+                                                                          ServiceScreenController>()
+                                                                      .removeService(
+                                                                          category,
+                                                                          service);
+                                                                },
+                                                              ),
                                                             ],
                                                           ),
                                                         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
+import 'package:rab_salon/presentation/company_profile_screen/view/company_profile_screen.dart';
 import 'package:rab_salon/presentation/employees_screen/view/employees_screen.dart';
 import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
@@ -18,9 +19,8 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
     ServiceScreen(),
     EmployeesScreen(),
     Container(
-        color: Colors.white, child: Center(child: Text("Projects Screen"))),
-    Container(
         color: Colors.white, child: Center(child: Text("Reports Screen"))),
+    CompanyProfileScreen(),
     Container(
         color: Colors.white, child: Center(child: Text("Settings Screen"))),
   ];

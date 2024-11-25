@@ -43,7 +43,9 @@ class EmployeeProfileOwnerScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Column(
@@ -72,7 +74,7 @@ class EmployeeProfileOwnerScreen extends StatelessWidget {
                       controller: _profileController.userNameController,
                       initialText: _profileController.initialUserName,
                       isEditing: _profileController.isEditingUserName,
-                     // toggleEditMode: _profileController.toggleUserNameEditMode,
+                      // toggleEditMode: _profileController.toggleUserNameEditMode,
                     ),
                     SizedBox(height: size.height * 0.01),
                     EditableTextField(
@@ -80,7 +82,7 @@ class EmployeeProfileOwnerScreen extends StatelessWidget {
                       controller: _profileController.passwordController,
                       initialText: _profileController.initialPassword,
                       isEditing: _profileController.isEditingPassword,
-                    //  toggleEditMode: _profileController.togglePasswordEditMode,
+                      //  toggleEditMode: _profileController.togglePasswordEditMode,
                     ),
                     SizedBox(height: size.height * 0.01),
                     Text("Today's Work",
