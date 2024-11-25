@@ -170,10 +170,10 @@ class ServiceAddingScreen extends StatelessWidget {
                                         hintText: 'Select Gender',
                                         labelStyle: TextStyle(color: Colors.black),
                                         floatingLabelBehavior: FloatingLabelBehavior.never,
-                                        contentPadding: EdgeInsets.symmetric(
-                                          horizontal: size.width * 0.04,
-                                          vertical: size.height * 0.01,
-                                        ),
+                                        // contentPadding: EdgeInsets.symmetric(
+                                        //   horizontal: size.width * 0.04,
+                                        //   vertical: size.height * 0.01,
+                                        // ),
                                         enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(8.0),
                                           borderSide: BorderSide(color: Colors.transparent),
