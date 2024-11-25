@@ -92,68 +92,63 @@ class AddBranchScreen extends StatelessWidget {
             ),
           ),
           // Fixed position for buttons
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              color: ColorTheme.white,
-              padding: EdgeInsets.symmetric(
-                horizontal: size.width * 0.07,
-                vertical: size.height * 0.02,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        // Handle Save and New
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: ColorTheme.maincolor,
-                            width: 1,
-                          ),
-                          color: ColorTheme.white,
-                        ),
-                        height: size.height * 0.05,
-                        child: Center(
-                          child: Text(
-                            'SAVE AND NEW',
-                            style: GLTextStyles.saveandnewbutton(),
-                          ),
-                        ),
-                      ),
+        ],
+      ),
+      bottomNavigationBar: Container(
+        color: ColorTheme.white,
+        padding: EdgeInsets.symmetric(
+          horizontal: size.width * 0.07,
+          vertical: size.height * 0.02,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  // Handle Save and New
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorTheme.maincolor,
+                      width: 1,
+                    ),
+                    color: ColorTheme.white,
+                  ),
+                  height: size.height * 0.05,
+                  child: Center(
+                    child: Text(
+                      'SAVE AND NEW',
+                      style: GLTextStyles.saveandnewbutton(),
                     ),
                   ),
-                  SizedBox(
-                      width: size.width * 0.05), // Add spacing between buttons
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        // Handle Save Branch
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: ColorTheme.maincolor,
-                        ),
-                        height: size.height * 0.05,
-                        child: Center(
-                          child: Text(
-                            'SAVE BRANCH',
-                            style: GLTextStyles.onboardingandsavebutton(),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+            SizedBox(width: size.width * 0.05), // Add spacing between buttons
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+  Navigator.pop(context, true); // Pass true to indicate a branch was added
+},
+
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorTheme.maincolor,
+                  ),
+                  height: size.height * 0.05,
+                  child: Center(
+                    child: Text(
+                      'SAVE BRANCH',
+                      style: GLTextStyles.onboardingandsavebutton(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

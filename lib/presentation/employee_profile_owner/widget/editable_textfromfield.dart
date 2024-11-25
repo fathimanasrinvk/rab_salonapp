@@ -48,15 +48,21 @@ class EditableTextField extends StatelessWidget {
                     child: isEditingValue
                         ? TextField(
                             controller: controller,
-                            obscureText: label.toLowerCase() == "password" ? true : false,
+                            obscureText: label.toLowerCase() == "password"
+                                ? true
+                                : false,
                             decoration: InputDecoration(
-                              hintText: controller.text.isEmpty ? initialText : controller.text,
+                              hintText: controller.text.isEmpty
+                                  ? initialText
+                                  : controller.text,
                               border: InputBorder.none,
                             ),
                             autofocus: true,
                           )
                         : Text(
-                            controller.text.isEmpty ? initialText : controller.text,
+                            controller.text.isEmpty
+                                ? initialText
+                                : controller.text,
                             style: GLTextStyles.subheadding2(),
                           ),
                   );

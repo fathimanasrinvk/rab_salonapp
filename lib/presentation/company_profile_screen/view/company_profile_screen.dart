@@ -46,8 +46,8 @@ class CompanyProfileScreen extends StatelessWidget {
                     controller: _companyProfileController.companyNameController,
                     initialText: _companyProfileController.initialCompanyName,
                     isEditing: _companyProfileController.isEditingCompanyName,
-                   // toggleEditMode:
-                      //  _companyProfileController.toggleCompanyNameEditMode,
+                    // toggleEditMode:
+                    //  _companyProfileController.toggleCompanyNameEditMode,
                   ),
                   SizedBox(height: size.height * 0.01),
                   EditableTextField(
@@ -58,8 +58,8 @@ class CompanyProfileScreen extends StatelessWidget {
                         _companyProfileController.initialRegistrationNumber,
                     isEditing:
                         _companyProfileController.isEditingRegistrationNumber,
-                 //   toggleEditMode:
-                       // _companyProfileController.toggleRegistrationNumber,
+                    //   toggleEditMode:
+                    // _companyProfileController.toggleRegistrationNumber,
                   ),
                   SizedBox(height: size.height * 0.01),
                   EditableTextField(
@@ -67,7 +67,7 @@ class CompanyProfileScreen extends StatelessWidget {
                     controller: _companyProfileController.locationController,
                     initialText: _companyProfileController.initialLocation,
                     isEditing: _companyProfileController.isEditingLocation,
-                   // toggleEditMode: _companyProfileController.toggleLocation,
+                    // toggleEditMode: _companyProfileController.toggleLocation,
                   ),
                   SizedBox(height: size.height * 0.01),
                   EditableTextField(
@@ -97,7 +97,7 @@ class CompanyProfileScreen extends StatelessWidget {
                     controller: _companyProfileController.mainBranchController,
                     initialText: _companyProfileController.initialMainBranch,
                     isEditing: _companyProfileController.isEditingMainBranch,
-                   // toggleEditMode: _companyProfileController.toggleMainBranch,
+                    // toggleEditMode: _companyProfileController.toggleMainBranch,
                   ),
                   SizedBox(height: size.height * 0.01),
                   EditableTextField(
@@ -108,23 +108,23 @@ class CompanyProfileScreen extends StatelessWidget {
                         _companyProfileController.initialNumberofEmployee,
                     isEditing:
                         _companyProfileController.isEditingNumberofEmployee,
-                //    toggleEditMode:
-                        //_companyProfileController.toggleNumberofEmployee,
+                    //    toggleEditMode:
+                    //_companyProfileController.toggleNumberofEmployee,
                   ),
                   SizedBox(height: size.height * 0.02),
                   _buildButton(
-                    'ADD YOUR BRANCHES',
+                    'ADD  BRANCHES',
                     size,
-                    () 
-                    //async
-                     {
-                      // bool? branchAdded = await Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (_) => AddBranchScreen()),
-                      // );
-                      // if (branchAdded == true) {
-                      //   _companyProfileController.markBranchAsAdded();
-                      // }
+                    () async {
+                      bool? branchAdded = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddBranchScreen(),
+                        ),
+                      );
+                      if (branchAdded == true) {
+                        _companyProfileController.markBranchAsAdded();
+                      }
                     },
                   ),
                   SizedBox(height: size.height * 0.01),
@@ -133,20 +133,20 @@ class CompanyProfileScreen extends StatelessWidget {
                     builder: (context, isBranchAdded, child) {
                       if (isBranchAdded) {
                         return _buildButton(
-                          'SHOW YOUR BRANCHES',
+                          'SHOW MY BRANCHES',
                           size,
                           () {
-                            // Navigate to Branch List Screen
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (_) => BranchListScreen()),
+                                builder: (_) => BranchListScreen(),
+                              ),
                             );
                           },
                         );
                       }
                       return SizedBox
-                          .shrink(); // Return an empty widget if not added
+                          .shrink(); // Show nothing if branch isn't added
                     },
                   ),
                   SizedBox(height: size.height * 0.01),

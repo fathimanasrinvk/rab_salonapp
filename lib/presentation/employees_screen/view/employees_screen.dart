@@ -3,6 +3,7 @@ import 'package:rab_salon/core/common/drawer/custom_drawer.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
 import 'package:rab_salon/presentation/add_employee_screen/view/add_employee_screen.dart';
+import 'package:rab_salon/presentation/employee_profile_owner/view/employee_profile_owner_screen.dart';
 
 class EmployeesScreen extends StatelessWidget {
   const EmployeesScreen({super.key});
@@ -70,6 +71,13 @@ class EmployeesScreen extends StatelessWidget {
                                     });
                                   },
                                 ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EmployeeProfileOwnerScreen()));
+                                },
                               ),
                             );
                           },
