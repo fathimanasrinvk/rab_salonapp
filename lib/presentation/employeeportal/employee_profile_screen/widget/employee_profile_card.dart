@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ReusableInfoCard extends StatelessWidget {
+class EmployeeProfileCard extends StatelessWidget {
   final String label;
   final String value;
 
-  const ReusableInfoCard({
+  const EmployeeProfileCard({
     Key? key,
     required this.label,
     required this.value,

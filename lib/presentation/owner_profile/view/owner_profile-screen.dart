@@ -22,37 +22,21 @@ class OwnerProfileScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              controller.isEditing ? Icons.save : Icons.edit,
-              color: ColorTheme.maincolor,
-            ),
-            onPressed: () {
-              if (controller.isEditing) {
-                // Save all changes
-                controller.toggleEditMode(); // Stop editing
-              } else {
-                controller.toggleEditMode(); // Start editing
-              }
-            },
-          ),
-        ],
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: size.width * 0.07, vertical: size.height * 0.02),
+          padding: EdgeInsets.symmetric(horizontal: size.width * 0.04, vertical: size.height * 0.02),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildEditableField("Owner Name", controller.ownerName, (value) => controller.updateField(0, value), size, 0),
+              buildEditableField("Owner Name", controller.ownerName, (value) => controller.updateField(0, value), size, 0, controller),
               SizedBox(height: size.height * 0.02),
-              buildEditableField("Phone Number", controller.phone, (value) => controller.updateField(1, value), size, 1),
+              buildEditableField("Phone Number", controller.phone, (value) => controller.updateField(1, value), size, 1, controller),
               SizedBox(height: size.height * 0.02),
-              buildEditableField("Email", controller.email, (value) => controller.updateField(2, value), size, 2),
+              buildEditableField("Email", controller.email, (value) => controller.updateField(2, value), size, 2, controller),
               SizedBox(height: size.height * 0.02),
-              buildEditableField("Aadhar Number", controller.aadhar, (value) => controller.updateField(3, value), size, 3),
+              buildEditableField("Aadhar Number", controller.aadhar, (value) => controller.updateField(3, value), size, 3, controller),
               SizedBox(height: size.height * 0.04),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -102,10 +86,18 @@ class OwnerProfileScreen extends StatelessWidget {
       ),
     );
   }
+  }
 
-  Widget buildEditableField(String label, String value, Function(String) onSave, Size size, int index) {
+  Widget buildEditableField(
+      String label,
+      String value,
+      Function(String) onSave,
+      Size size,
+      int index,
+      OwnerProfileController controller,
+      ) {
     return Consumer<OwnerProfileController>(builder: (context, controller, child) {
-      bool isEditable = controller.isEditing; // Check if all fields should be editable
+      bool isEditable = controller.editingFieldIndex == index;
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +109,7 @@ class OwnerProfileScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: size.height * 0.01),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.04,),
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.0355),
               decoration: BoxDecoration(
                 color: ColorTheme.white,
                 borderRadius: BorderRadius.circular(8.0),
@@ -132,6 +124,7 @@ class OwnerProfileScreen extends StatelessWidget {
               ),
               child: Row(
                 children: [
+                  // Wrap the editable field with Expanded
                   Expanded(
                     child: isEditable
                         ? TextFormField(
@@ -145,7 +138,22 @@ class OwnerProfileScreen extends StatelessWidget {
                         : Text(
                       value,
                       style: GLTextStyles.textformfieldtext2(),
+                      overflow: TextOverflow.ellipsis, // Add overflow handling
                     ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      isEditable ? Icons.check : Icons.edit,
+                      color: ColorTheme.maincolor,
+                    ),
+                    onPressed: () {
+                      if (isEditable) {
+                        controller.editingFieldIndex = null;
+                      } else {
+                        controller.editingFieldIndex = index;
+                      }
+                      controller.notifyListeners();
+                    },
                   ),
                 ],
               ),
@@ -155,4 +163,3 @@ class OwnerProfileScreen extends StatelessWidget {
       );
     });
   }
-}
