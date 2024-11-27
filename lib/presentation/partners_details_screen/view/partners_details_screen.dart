@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/color_constants.dart';
 import '../../../core/constants/text_styles.dart';
-import '../../owner_profile/controller/owner_profile_controller.dart';
+import '../../owner_profile_screen/controller/owner_profile_controller.dart';
 
 class AddedPartnerDetailsScreen extends StatelessWidget {
   final Map<String, String> partnerDetails;

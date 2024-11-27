@@ -8,6 +8,7 @@ import 'package:rab_salon/presentation/employee_profile_owner/controller/employe
 import 'package:rab_salon/presentation/employee_profile_owner/view/employee_profile_owner_screen.dart';
 import 'package:rab_salon/presentation/employees_screen/view/employees_screen.dart';
 import 'package:rab_salon/presentation/owner_profile_screen/controller/owner_profile_controller.dart';
+import 'package:rab_salon/presentation/owner_profile_screen/view/owner_profile-screen.dart';
 import 'package:rab_salon/presentation/partner_adding_screen/controller/add_partner_controller.dart';
 import 'package:rab_salon/presentation/service_adding_screen/view/service_adding_screen.dart';
 import 'package:rab_salon/presentation/service_screen/controller/service_screen_controller.dart';
@@ -28,9 +29,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         // home: AddEmployeeScreen(),
-        home: EmployeeProfileOwnerScreen()
+        // home: StatusNavigationBar()
         // home: OwnerProfileScreen(),
-        // home: EmployeeProfileOwnerScreen(),
+        home: EmployeeProfileOwnerScreen(),
         // home: OnboardingScreen(),
         );
   }

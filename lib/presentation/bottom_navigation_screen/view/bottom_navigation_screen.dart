@@ -3,6 +3,7 @@ import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
 import 'package:rab_salon/presentation/company_profile_screen/view/company_profile_screen.dart';
 import 'package:rab_salon/presentation/employees_screen/view/employees_screen.dart';
+import 'package:rab_salon/presentation/owner_profile_screen/view/owner_profile-screen.dart';
 import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
 class StatusNavigationBar extends StatefulWidget {
@@ -18,8 +19,7 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
   final List<Widget> _screens = [
     ServiceScreen(),
     EmployeesScreen(),
-    Container(
-        color: Colors.white, child: Center(child: Text("Reports Screen"))),
+    OwnerProfileScreen(),
     CompanyProfileScreen(),
     Container(
         color: Colors.white, child: Center(child: Text("Settings Screen"))),
@@ -74,6 +74,7 @@ class _StatusNavigationBarState extends State<StatusNavigationBar> {
     var size = MediaQuery.sizeOf(context);
 
     return Scaffold(
+
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rab_salon/core/common/drawer/custom_drawer.dart';
+import 'package:rab_salon/presentation/service_adding_screen/view/service_adding_screen.dart';
 import 'package:rab_salon/presentation/service_screen/controller/service_screen_controller.dart';
 
 import 'package:rab_salon/core/constants/color_constants.dart';
@@ -38,6 +39,7 @@ class ServiceScreen extends StatelessWidget {
     bool noServices = services.isNotEmpty;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorTheme.white,
       drawer: CustomDrawer(size: size, branches: branches),
       appBar: AppBar(
@@ -259,8 +261,12 @@ class ServiceScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: ColorTheme.maincolor,
         onPressed: () {
-          // Action to add services
-        },
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>ServiceAddingScreen(),
+            ),
+          );        },
         label: Text(
           "Add Your Services",
           style: GLTextStyles.flaotingbuttontext(),

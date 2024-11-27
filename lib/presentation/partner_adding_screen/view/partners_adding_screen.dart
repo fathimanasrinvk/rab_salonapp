@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/color_constants.dart';
 import '../../../core/constants/text_styles.dart';
-import '../../owner_profile/controller/owner_profile_controller.dart';
+import '../../owner_profile_screen/controller/owner_profile_controller.dart';
 import '../controller/add_partner_controller.dart';
 
 class AddPartnerScreen extends StatelessWidget {
@@ -94,67 +94,134 @@ class AddPartnerScreen extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (controller.formKey.currentState!.validate()) {
-                      final partnerDetails = controller.getPartnerDetails();
-                      Provider.of<OwnerProfileController>(context, listen: false)
-                          .addPartner(partnerDetails);
-                      controller.clearFields();
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: ColorTheme.maincolor,
-                        width: 1,
-                      ),
-                      color: ColorTheme.white,
-                    ),
-                    height: size.height * 0.05,
-                    width: size.width * 0.45,
-                    child: Center(
-                      child: Text(
-                        'SAVE AND NEW',
-                        style: GLTextStyles.saveandnewbutton(),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    if (controller.formKey.currentState!.validate()) {
-                      final partnerDetails = controller.getPartnerDetails();
-                      Provider.of<OwnerProfileController>(context, listen: false)
-                          .addPartner(partnerDetails);
-                      controller.clearFields();
-
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorTheme.maincolor,
-                    ),
-                    height: size.height * 0.05,
-                    width: size.width * 0.45,
-                    child: Center(
-                      child: Text(
-                        'SAVE PARTNER',
-                        style: GLTextStyles.onboardingandsavebutton(),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     children: [
+          //       GestureDetector(
+          //         onTap: () {
+          //           if (controller.formKey.currentState!.validate()) {
+          //             final partnerDetails = controller.getPartnerDetails();
+          //             Provider.of<OwnerProfileController>(context, listen: false)
+          //                 .addPartner(partnerDetails);
+          //             controller.clearFields();
+          //           }
+          //         },
+          //         child: Container(
+          //           decoration: BoxDecoration(
+          //             border: Border.all(
+          //               color: ColorTheme.maincolor,
+          //               width: 1,
+          //             ),
+          //             color: ColorTheme.white,
+          //           ),
+          //           height: size.height * 0.05,
+          //           width: size.width * 0.45,
+          //           child: Center(
+          //             child: Text(
+          //               'SAVE AND NEW',
+          //               style: GLTextStyles.saveandnewbutton(),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //       GestureDetector(
+          //         onTap: () {
+          //           if (controller.formKey.currentState!.validate()) {
+          //             final partnerDetails = controller.getPartnerDetails();
+          //             Provider.of<OwnerProfileController>(context, listen: false)
+          //                 .addPartner(partnerDetails);
+          //             controller.clearFields();
+          //
+          //             Navigator.pop(context);
+          //           }
+          //         },
+          //         child: Container(
+          //           decoration: BoxDecoration(
+          //             color: ColorTheme.maincolor,
+          //           ),
+          //           height: size.height * 0.05,
+          //           width: size.width * 0.45,
+          //           child: Center(
+          //             child: Text(
+          //               'SAVE PARTNER',
+          //               style: GLTextStyles.onboardingandsavebutton(),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        color: ColorTheme.white,
+        padding: EdgeInsets.symmetric(
+          horizontal: size.width * 0.07,
+          vertical: size.height * 0.02,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+    if (controller.formKey.currentState!.validate()) {
+                final partnerDetails = controller.getPartnerDetails();
+                Provider.of<OwnerProfileController>(context, listen: false)
+                    .addPartner(partnerDetails);
+                controller.clearFields();
+              }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorTheme.maincolor,
+                      width: 1,
+                    ),
+                    color: ColorTheme.white,
+                  ),
+                  height: size.height * 0.05,
+                  child: Center(
+                    child: Text(
+                      'SAVE AND NEW',
+                      style: GLTextStyles.saveandnewbutton(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: size.width * 0.05), // Add spacing between buttons
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+    if (controller.formKey.currentState!.validate()) {
+                final partnerDetails = controller.getPartnerDetails();
+                Provider.of<OwnerProfileController>(context, listen: false)
+                    .addPartner(partnerDetails);
+                controller.clearFields();
+
+                Navigator.pop(context);
+              }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorTheme.maincolor,
+                  ),
+                  height: size.height * 0.05,
+                  child: Center(
+                    child: Text(
+                      'SAVE PARTNER',
+                      style: GLTextStyles.onboardingandsavebutton(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
