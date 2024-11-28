@@ -27,9 +27,9 @@ class ShowPartnersScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.07,vertical: size.height*0.02),
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.07,vertical: size.height*0.02),
 
-      itemCount: controller.partners.length,
+        itemCount: controller.partners.length,
         itemBuilder: (context, index) {
           final partner = controller.partners[index];
           return GestureDetector(

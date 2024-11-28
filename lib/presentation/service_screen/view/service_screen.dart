@@ -55,209 +55,209 @@ class ServiceScreen extends StatelessWidget {
       ),
       body: noServices
           ? Padding(
-              padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Your Salon Services",
-                    style: GLTextStyles.subheadding2(),
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Your Salon Services",
+              style: GLTextStyles.subheadding2(),
+            ),
+            SizedBox(height: size.height * 0.02),
+            Container(
+              decoration: BoxDecoration(
+                color: ColorTheme.secondarycolor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    offset: Offset(0, 4),
+                    blurRadius: 8,
+                    spreadRadius: 5,
                   ),
-                  SizedBox(height: size.height * 0.02),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: ColorTheme.secondarycolor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          offset: Offset(0, 4),
-                          blurRadius: 8,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        prefixIcon:
-                            Icon(Icons.search, color: ColorTheme.lightgrey),
-                        hintText: "Search for services...",
-                        hintStyle: GLTextStyles.greytxt(),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: size.height * 0.02,
-                          horizontal: size.width * 0.04,
-                        ),
+                ],
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  prefixIcon:
+                  Icon(Icons.search, color: ColorTheme.lightgrey),
+                  hintText: "Search for services...",
+                  hintStyle: GLTextStyles.greytxt(),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: size.height * 0.02,
+                    horizontal: size.width * 0.04,
+                  ),
+                ),
+                onChanged: (query) {
+                  context
+                      .read<ServiceScreenController>()
+                      .updateSearchQuery(query);
+                },
+              ),
+            ),
+            SizedBox(height: size.height * 0.03),
+            Expanded(
+              child: Consumer<ServiceScreenController>(
+                builder: (context, controller, child) {
+                  String searchQuery =
+                  controller.searchQuery.toLowerCase();
+                  List<String> filteredCategories = categories
+                      .where((category) =>
+                      category.toLowerCase().contains(searchQuery))
+                      .toList();
+
+                  if (filteredCategories.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "Your searched service is not available",
+                        style: GLTextStyles.bottomtxt2()
+                            .copyWith(color: Colors.grey),
+                        textAlign: TextAlign.center,
                       ),
-                      onChanged: (query) {
-                        context
-                            .read<ServiceScreenController>()
-                            .updateSearchQuery(query);
-                      },
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.03),
-                  Expanded(
-                    child: Consumer<ServiceScreenController>(
-                      builder: (context, controller, child) {
-                        String searchQuery =
-                            controller.searchQuery.toLowerCase();
-                        List<String> filteredCategories = categories
-                            .where((category) =>
-                                category.toLowerCase().contains(searchQuery))
-                            .toList();
+                    );
+                  }
 
-                        if (filteredCategories.isEmpty) {
-                          return Center(
-                            child: Text(
-                              "Your searched service is not available",
-                              style: GLTextStyles.bottomtxt2()
-                                  .copyWith(color: Colors.grey),
-                              textAlign: TextAlign.center,
-                            ),
-                          );
-                        }
+                  return ListView.builder(
+                    itemCount: filteredCategories.length,
+                    itemBuilder: (context, index) {
+                      String category = filteredCategories[index];
+                      bool isExpanded =
+                          controller.expandedCategories[category] ??
+                              false;
 
-                        return ListView.builder(
-                          itemCount: filteredCategories.length,
-                          itemBuilder: (context, index) {
-                            String category = filteredCategories[index];
-                            bool isExpanded =
-                                controller.expandedCategories[category] ??
-                                    false;
-
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Card(
-                                color: ColorTheme.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                elevation: 5,
-                                child: InkWell(
-                                  onTap: () {
-                                    controller.toggleCategory(category);
-                                  },
-                                  child: Column(
+                      return Padding(
+                        padding:
+                        const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Card(
+                          color: ColorTheme.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          elevation: 5,
+                          child: InkWell(
+                            onTap: () {
+                              controller.toggleCategory(category);
+                            },
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Row(
                                     children: [
-                                      ListTile(
-                                        title: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                category,
-                                                style:
-                                                    GLTextStyles.categorytext(),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: IconButton(
-                                                icon: Icon(Icons.delete),
-                                                onPressed: () {
-                                                  context
-                                                      .read<
-                                                          ServiceScreenController>()
-                                                      .removeCategory(category);
-                                                },
-                                              ),
-                                            ),
-                                          ],
+                                      Expanded(
+                                        child: Text(
+                                          category,
+                                          style:
+                                          GLTextStyles.categorytext(),
                                         ),
                                       ),
-                                      AnimatedSize(
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.easeInOut,
-                                        child: Visibility(
-                                          visible: isExpanded,
-                                          child: Column(
-                                            children: services[category]!
-                                                .where((service) => service
-                                                    .toLowerCase()
-                                                    .contains(searchQuery))
-                                                .map((service) => Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          vertical: 4.0,
-                                                          horizontal: 16.0),
-                                                      child: Card(
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
-                                                        elevation: 3,
-                                                        child: Container(
-                                                          color: ColorTheme
-                                                              .secondarycolor,
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  size.height *
-                                                                      0.01),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                  "Service: $service",
-                                                                  style: GLTextStyles
-                                                                      .onboardbottomcardtxt()),
-                                                              Text(
-                                                                  "Category: Women",
-                                                                  style: GLTextStyles
-                                                                      .onboardbottomcardtxt()),
-                                                              Text(
-                                                                  "Price: ₹500",
-                                                                  style: GLTextStyles
-                                                                      .onboardbottomcardtxt()),
-                                                              IconButton(
-                                                                icon: Icon(
-                                                                    Icons
-                                                                        .delete,
-                                                                    color: ColorTheme
-                                                                        .maincolor),
-                                                                onPressed: () {
-                                                                  // Handle delete service
-                                                                  context
-                                                                      .read<
-                                                                          ServiceScreenController>()
-                                                                      .removeService(
-                                                                          category,
-                                                                          service);
-                                                                },
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                          ),
+                                      Expanded(
+                                        child: IconButton(
+                                          icon: Icon(Icons.delete),
+                                          onPressed: () {
+                                            context
+                                                .read<
+                                                ServiceScreenController>()
+                                                .removeCategory(category);
+                                          },
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : Center(
-              child: Text(
-                "No services added.\nPlease add your salon services.",
-                style: GLTextStyles.bottomtxt2().copyWith(),
-                textAlign: TextAlign.center,
+                                AnimatedSize(
+                                  duration: Duration(milliseconds: 300),
+                                  curve: Curves.easeInOut,
+                                  child: Visibility(
+                                    visible: isExpanded,
+                                    child: Column(
+                                      children: services[category]!
+                                          .where((service) => service
+                                          .toLowerCase()
+                                          .contains(searchQuery))
+                                          .map((service) => Padding(
+                                        padding: const EdgeInsets
+                                            .symmetric(
+                                            vertical: 4.0,
+                                            horizontal: 16.0),
+                                        child: Card(
+                                          shape:
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius
+                                                .circular(
+                                                8.0),
+                                          ),
+                                          elevation: 3,
+                                          child: Container(
+                                            color: ColorTheme
+                                                .secondarycolor,
+                                            padding:
+                                            EdgeInsets.all(
+                                                size.height *
+                                                    0.01),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                Text(
+                                                    "Service: $service",
+                                                    style: GLTextStyles
+                                                        .onboardbottomcardtxt()),
+                                                Text(
+                                                    "Category: Women",
+                                                    style: GLTextStyles
+                                                        .onboardbottomcardtxt()),
+                                                Text(
+                                                    "Price: ₹500",
+                                                    style: GLTextStyles
+                                                        .onboardbottomcardtxt()),
+                                                IconButton(
+                                                  icon: Icon(
+                                                      Icons
+                                                          .delete,
+                                                      color: ColorTheme
+                                                          .maincolor),
+                                                  onPressed: () {
+                                                    // Handle delete service
+                                                    context
+                                                        .read<
+                                                        ServiceScreenController>()
+                                                        .removeService(
+                                                        category,
+                                                        service);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ))
+                                          .toList(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
             ),
+          ],
+        ),
+      )
+          : Center(
+        child: Text(
+          "No services added.\nPlease add your salon services.",
+          style: GLTextStyles.bottomtxt2().copyWith(),
+          textAlign: TextAlign.center,
+        ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: ColorTheme.maincolor,
         onPressed: () {

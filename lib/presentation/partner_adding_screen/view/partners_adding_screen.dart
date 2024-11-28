@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rab_salon/presentation/owner_profile_screen/controller/owner_profile_controller.dart';
 import '../../../core/constants/color_constants.dart';
 import '../../../core/constants/text_styles.dart';
-import '../../owner_profile_screen/controller/owner_profile_controller.dart';
 import '../controller/add_partner_controller.dart';
+
 
 class AddPartnerScreen extends StatelessWidget {
   @override
