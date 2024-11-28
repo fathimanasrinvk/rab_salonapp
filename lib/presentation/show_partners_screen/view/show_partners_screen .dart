@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rab_salon/presentation/owner_profile_screen/controller/owner_profile_controller.dart';
 import '../../../core/constants/color_constants.dart';
 import '../../../core/constants/text_styles.dart';
-import '../../owner_profile/controller/owner_profile_controller.dart';
+
 import '../../partners_details_screen/view/partners_details_screen.dart';
 
 class ShowPartnersScreen extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rab_salon/core/common/drawer/custom_drawer.dart';
+import 'package:rab_salon/presentation/service_adding_screen/view/service_adding_screen.dart';
 import 'package:rab_salon/presentation/service_screen/controller/service_screen_controller.dart';
 
 import 'package:rab_salon/core/constants/color_constants.dart';
@@ -28,7 +29,7 @@ class ServiceScreen extends StatelessWidget {
   };
   List<Map<String, String>> branches = [
     {"branchName": " BRANCH", "location": "DOWNTOWN"},
-    {"branchName": "BRANCH", "location": "DOWNTOWN"},
+    {"branchName": "BRANCH", "location": "DOWNTOWN"}, 
   ];
   @override
   Widget build(BuildContext context) {
@@ -140,27 +141,18 @@ class ServiceScreen extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                category,
-                                                style:
-                                                    GLTextStyles.categorytext(),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: IconButton(
-                                                icon: Icon(Icons.delete),
-                                                onPressed: () {
-                                                  context
-                                                      .read<
-                                                          ServiceScreenController>()
-                                                      .removeCategory(category);
-                                                },
-                                              ),
-                                            ),
-                                          ],
+                                        title: Text(
+                                          category,
+                                          style: GLTextStyles.categorytext(),
+                                        ),
+                                        trailing: IconButton(
+                                          icon: Icon(Icons.delete),
+                                          onPressed: () {
+                                            // Handle delete action
+                                            context
+                                                .read<ServiceScreenController>()
+                                                .removeCategory(category);
+                                          },
                                         ),
                                       ),
                                       AnimatedSize(
@@ -259,7 +251,8 @@ class ServiceScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: ColorTheme.maincolor,
         onPressed: () {
-          // Action to add services
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ServiceAddingScreen()));
         },
         label: Text(
           "Add Your Services",
