@@ -164,6 +164,20 @@ class GLTextStyles {
       color: color ?? ColorTheme.white,
     );
   }
+  static cardlabeltext({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.lato(
+      fontSize: size ?? 16,
+      fontWeight: weight ?? FontWeight.bold,
+      color: color ?? ColorTheme.black,
+    );
+  }
+  static cardvaluetext({double? size, FontWeight? weight, Color? color}) {
+    return GoogleFonts.lato(
+      fontSize: size ?? 15,
+      fontWeight: weight ?? FontWeight.normal,
+      color: color ?? ColorTheme.black,
+    );
+  }
 
   static categorytext({double? size, FontWeight? weight, Color? color}) {
     return GoogleFonts.rakkas(

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
+import 'package:rab_salon/presentation/employeeportal/show_my_woerks_screen/view/show_my_works_screen.dart';
 import '../../../../core/constants/text_styles.dart';
 import '../widget/employee_profile_card.dart';
 
-
-class Employee_profile_screen extends StatelessWidget {
-  const Employee_profile_screen({Key? key}) : super(key: key);
+class EmployeeProfileScreen extends StatelessWidget {
+  const EmployeeProfileScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     var size = MediaQuery.sizeOf(context);
-
     return Scaffold(
       backgroundColor: ColorTheme.white,
       appBar: AppBar(
@@ -26,7 +25,7 @@ class Employee_profile_screen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
-          onPressed: () {},
+          onPressed:(){},
         ),
       ),
       body: Padding(
@@ -41,9 +40,10 @@ class Employee_profile_screen extends StatelessWidget {
             SizedBox(height: size.height*0.022),
              EmployeeProfileCard(label: 'Password', value: '12356'),
             SizedBox(height: size.height*0.022),
-
             GestureDetector(
-              onTap: (){},
+              onTap: (){
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>ShowMyWorksScreen()));
+              },
               child: Padding(
                 padding:  EdgeInsets.symmetric(horizontal: size.width*0.1, vertical: size.height*0.035),
                 child: Container(
