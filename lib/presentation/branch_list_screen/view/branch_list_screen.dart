@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
+import 'package:rab_salon/presentation/brach_details_screen/view/branch_details_screen.dart';
 import 'package:rab_salon/presentation/branch_list_screen/controller/branch_list_screen_controller.dart';
 
 class BranchListScreen extends StatelessWidget {
@@ -66,6 +67,12 @@ class BranchListScreen extends StatelessWidget {
                     itemCount: branchLisScreenController.subBranches.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BranchDetailsScreen()));
+                        },
                         onLongPress: () => _showAlertDialog(
                           context,
                           branchLisScreenController.subBranches[index]

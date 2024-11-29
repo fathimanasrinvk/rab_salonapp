@@ -45,6 +45,7 @@ class EmployeeCustomerScreenController with ChangeNotifier {
 
   // Removes a service from the selected list
   void removeService(Map<String, String> service) {
+    
     selectedServices.removeWhere((selectedService) =>
         selectedService["name"] == service["name"]);
     notifyListeners(); // Notify listeners to update the UI

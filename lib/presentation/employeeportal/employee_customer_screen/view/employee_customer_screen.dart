@@ -5,6 +5,7 @@ import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
 import 'package:rab_salon/presentation/employeeportal/employee_customer_screen/controller/employee_customer_screen_controller.dart';
 import 'package:rab_salon/presentation/employeeportal/employee_customer_screen/controller/total_and_discount_amount_controller.dart';
+import 'package:rab_salon/presentation/employeeportal/employee_customer_screen/widget/experted_service_widget.dart';
 import 'package:rab_salon/presentation/employeeportal/employee_customer_screen/widget/total_and_discount_amount.dart';
 
 class EmployeeCustomerScreen extends StatelessWidget {
@@ -13,10 +14,10 @@ class EmployeeCustomerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Callback to handle discount update, which will be used in BottomNavigationBarWidget
-      void _updateDiscountedPrice(BuildContext context, String newPrice) {
-    Provider.of<DiscountProvider>(context, listen: false)
-        .updateDiscountedPrice(newPrice);
-  }
+    void _updateDiscountedPrice(BuildContext context, String newPrice) {
+      Provider.of<DiscountProvider>(context, listen: false)
+          .updateDiscountedPrice(newPrice);
+    }
 
     final employeeController =
         Provider.of<EmployeeCustomerScreenController>(context);
@@ -107,13 +108,12 @@ class EmployeeCustomerScreen extends StatelessWidget {
                               padding:
                                   EdgeInsets.only(right: size.width * 0.05),
                               child: GestureDetector(
-                                onTap: (){
-                                   _showRemoveServiceDialog(
+                                onTap: () {
+                                  _showRemoveServiceDialog(
                                       context, employeeController, service);
                                 },
                                 onLongPress: () {
                                   _showAlertDialog(context);
-                                 
                                 },
                                 child: buildServiceCard(service, size),
                               ),
@@ -126,27 +126,13 @@ class EmployeeCustomerScreen extends StatelessWidget {
 
                 SizedBox(height: size.height * 0.02),
                 // Experted Services Section
-                Text("Experted Services",
-                    style: GLTextStyles.textformfieldtitle()),
-                SizedBox(height: size.height * 0.02),
-                // List of available services
-                SizedBox(
-                  height: size.height * 0.15,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: servicesCustomer.length,
-                    itemBuilder: (context, index) {
-                      final service = servicesCustomer[index];
-                      return Padding(
-                        padding: EdgeInsets.only(right: size.width * 0.05),
-                        child: GestureDetector(
-                          onTap: () =>
-                              employeeController.selectService(service),
-                          child: buildServiceCard(service, size),
-                        ),
-                      );
-                    },
-                  ),
+                ExpertedServicesWidget(
+                  title: "Experted Services",
+                  servicesCustomer: servicesCustomer,
+                  onServiceTap: (service) {
+                    employeeController.selectService(service);
+                  },
+                  size: MediaQuery.of(context).size,
                 ),
 
                 SizedBox(height: size.height * 0.02),
@@ -497,7 +483,7 @@ class EmployeeCustomerScreen extends StatelessWidget {
     );
   }
 
-void _showAlertDialog(BuildContext context) async {
+  void _showAlertDialog(BuildContext context) async {
     // Hardcoded names list
     List<String> names = [
       'John',
@@ -578,5 +564,4 @@ void _showAlertDialog(BuildContext context) async {
       },
     );
   }
-
 }

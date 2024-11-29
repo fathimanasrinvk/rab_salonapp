@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
-import 'package:rab_salon/presentation/brach_details_screen/controller/branch_details_screen_controller.dart';
-import 'package:rab_salon/presentation/employee_profile_owner/widget/editable_textfromfield.dart';
+import 'package:rab_salon/presentation/service_details_screen/controller/service_details_screen_controller.dart';
 
-class BranchDetailsScreen extends StatelessWidget {
-  final BranchDetailsScreenController controller =
-      BranchDetailsScreenController();
-
+class ServiceDetailsScreen extends StatelessWidget {
+  final ServiceDetailsScreenController controller =
+      ServiceDetailsScreenController();
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.sizeOf(context);
+    var size = MediaQuery.of(context).size;
+    String? selectedGender; // Variable to store selected gender
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorTheme.white,
       appBar: AppBar(
+        backgroundColor: ColorTheme.white,
         centerTitle: true,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,25 +25,26 @@ class BranchDetailsScreen extends StatelessWidget {
             Text('LOCATION', style: GLTextStyles.locationtext()),
           ],
         ),
-        backgroundColor: ColorTheme.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-              child: SingleChildScrollView(
-            child: Padding(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: size.width * 0.04, vertical: size.height * 0.02),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildEditableField(
-                    "Branch Name",
-                    controller.branchName,
+                    "Service Name",
+                    controller.serviceName,
                     (value) => controller.updateField(0, value),
                     size,
                     0,
@@ -50,8 +52,8 @@ class BranchDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * 0.02),
                   buildEditableField(
-                    "Branch Location",
-                    controller.branchLocation,
+                    "Category Name",
+                    controller.category,
                     (value) => controller.updateField(0, value),
                     size,
                     1,
@@ -59,36 +61,67 @@ class BranchDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * 0.02),
                   buildEditableField(
-                    "Registration Number",
-                    controller.registrationNumber,
+                    "Price",
+                    controller.price,
                     (value) => controller.updateField(0, value),
                     size,
                     2,
                     controller,
                   ),
                   SizedBox(height: size.height * 0.02),
-                  buildEditableField(
-                    "Branch Number",
-                    controller.branchNumber,
-                    (value) => controller.updateField(0, value),
-                    size,
-                    3,
-                    controller,
-                  ),
-                  SizedBox(height: size.height * 0.02),
-                  buildEditableField(
-                    "Number of Employee",
-                    controller.numberofEmployee,
-                    (value) => controller.updateField(0, value),
-                    size,
-                    4,
-                    controller,
+                  Text('Gender', style: GLTextStyles.textformfieldtitle()),
+                  Padding(
+                    padding: EdgeInsets.only(top: size.height * 0.014),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: Offset(5, 5),
+                          ),
+                        ],
+                      ),
+                      child: DropdownButtonFormField<String>(
+                        dropdownColor: ColorTheme.secondarycolor,
+                        isExpanded: true,
+                        isDense: true,
+                        decoration: InputDecoration(
+                          hintText: 'Select',
+                          hintStyle: GLTextStyles.textformfieldtext2(),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.04,
+                            vertical: size.height * 0.01,
+                          ),
+                          border: InputBorder.none,
+                        ),
+                        value: selectedGender,
+                        items: ['Select', 'Women', 'Men', 'Other']
+                            .map((gender) => DropdownMenuItem(
+                                  value: gender == 'Select' ? null : gender,
+                                  child: Text(gender),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          selectedGender = value;
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select a gender';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
-          ))
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -99,9 +132,9 @@ class BranchDetailsScreen extends StatelessWidget {
     Function(String) onSave,
     Size size,
     int index,
-    BranchDetailsScreenController controller,
+    ServiceDetailsScreenController controller,
   ) {
-    return Consumer<BranchDetailsScreenController>(
+    return Consumer<ServiceDetailsScreenController>(
       builder: (context, controller, child) {
         bool isEditable = controller.editingFieldIndex == index;
 
