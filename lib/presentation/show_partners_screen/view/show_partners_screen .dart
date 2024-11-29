@@ -13,7 +13,6 @@ class ShowPartnersScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: ColorTheme.white,
-
       appBar: AppBar(
         centerTitle: true,
         title: Text('PARTNERS', style: GLTextStyles.subheadding()),
