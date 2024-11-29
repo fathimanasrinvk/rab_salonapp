@@ -30,7 +30,7 @@ class EmployeeStatusNavigationBar extends StatelessWidget {
       {
         "icon": "assets/images/workinactive.png",
         "text": "Works",
-        "activeIcon": "assets/images/workactive.png",
+        "activeIcon": "assets/images/worksactive.png",
         "activeColor": ColorTheme.black,
         "inactiveColor": ColorTheme.white,
       },
