@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
+import 'package:rab_salon/presentation/employeeportal/employee_customer_screen/view/employee_customer_screen.dart';
 
 class EmployeeWorkScreen extends StatefulWidget {
   EmployeeWorkScreen({Key? key}) : super(key: key);
@@ -43,6 +44,7 @@ class _EmployeeWorkScreenState extends State<EmployeeWorkScreen> {
     return Scaffold(
       backgroundColor: ColorTheme.white,
       appBar: AppBar(
+        leading: Icon(null),
         backgroundColor: ColorTheme.white,
         centerTitle: true,
         title: Column(
@@ -89,7 +91,15 @@ class _EmployeeWorkScreenState extends State<EmployeeWorkScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: items.length > 10 ? 10 : items.length,
                 itemBuilder: (context, index) {
-                  return _buildStaticCustomerCard(index, size);
+                  return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EmployeeCustomerScreen()));
+                      },
+                      child: _buildStaticCustomerCard(index, size));
                 },
               ),
 

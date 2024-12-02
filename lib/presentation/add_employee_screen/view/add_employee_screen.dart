@@ -151,22 +151,24 @@ class AddEmployeeScreen extends StatelessWidget {
                             ),
                             elevation: 3,
                             child: Container(
-                              color: ColorTheme.secondarycolor,
+                              decoration: BoxDecoration(
+                                  color: ColorTheme.maincolor,
+                                  borderRadius: BorderRadius.circular(8)),
                               padding: EdgeInsets.all(size.height * 0.01),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "Service: $service",
-                                    style: GLTextStyles.onboardbottomcardtxt(),
+                                    style: GLTextStyles.registertxt1(),
                                   ),
                                   Text(
                                     "Category: Women",
-                                    style: GLTextStyles.onboardbottomcardtxt(),
+                                    style: GLTextStyles.registertxt1(),
                                   ),
                                   Text(
                                     "Price: ₹500",
-                                    style: GLTextStyles.onboardbottomcardtxt(),
+                                    style: GLTextStyles.registertxt1(),
                                   ),
                                   SizedBox(height: size.height * 0.01),
                                   Text(
@@ -282,9 +284,12 @@ class AddEmployeeScreen extends StatelessWidget {
                             controller.expandedCategories[category] ?? false;
 
                         return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: EdgeInsets.symmetric(
+                              vertical: size.height * 0.01),
                           child: Card(
-                            color: ColorTheme.white,
+                            color: isExpanded
+                                ? ColorTheme.maincolor
+                                : ColorTheme.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0),
                             ),
@@ -294,80 +299,100 @@ class AddEmployeeScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text(category,
-                                        style: GLTextStyles.categorytext()),
+                                    title: Text(
+                                      category,
+                                      style: GLTextStyles.categorytext(
+                                          color: isExpanded
+                                              ? ColorTheme.white
+                                              : ColorTheme.black),
+                                    ),
                                   ),
                                   AnimatedSize(
                                     duration: Duration(milliseconds: 300),
                                     curve: Curves.easeInOut,
                                     child: Visibility(
                                       visible: isExpanded,
-                                      child: Column(
-                                        children: services[category]!
-                                            .where((service) => service
-                                                .toLowerCase()
-                                                .contains(searchQuery))
-                                            .map((service) => Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    vertical: 4.0,
-                                                    horizontal: 16.0,
-                                                  ),
-                                                  child: Card(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    elevation: 3,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        controller
-                                                            .toggleServiceSelection(
-                                                                service);
-                                                      },
-                                                      child: Container(
-                                                        color: controller
-                                                                .selectedServices
-                                                                .contains(
-                                                                    service)
-                                                            ? Colors
-                                                                .green.shade100
-                                                            : ColorTheme
-                                                                .secondarycolor,
-                                                        padding: EdgeInsets.all(
-                                                            size.height * 0.01),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              "Service: $service",
-                                                              style: GLTextStyles
-                                                                  .onboardbottomcardtxt(),
-                                                            ),
-                                                            Text(
-                                                              "Category: Women",
-                                                              style: GLTextStyles
-                                                                  .onboardbottomcardtxt(),
-                                                            ),
-                                                            Text(
-                                                              "Price: ₹500",
-                                                              style: GLTextStyles
-                                                                  .onboardbottomcardtxt(),
-                                                            ),
-                                                          ],
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: services[category]!
+                                              .where((service) => service
+                                                  .toLowerCase()
+                                                  .contains(searchQuery))
+                                              .map((service) => Padding(
+                                                    padding: EdgeInsets.all(
+                                                        size.height * .01),
+                                                    //     EdgeInsets.symmetric(
+                                                    //   vertical:
+                                                    //       size.height * .005,
+                                                    //   horizontal:
+                                                    //       size.width * .005,
+                                                    // ),
+                                                    child: Card(
+                                                      color: ColorTheme.white,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                      elevation: 3,
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          controller
+                                                              .toggleServiceSelection(
+                                                                  service);
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: controller
+                                                                      .selectedServices
+                                                                      .contains(
+                                                                          service)
+                                                                  ? Colors.green
+                                                                      .shade100
+                                                                  : ColorTheme
+                                                                      .white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8)),
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  size.height *
+                                                                      0.01),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                "Service: $service",
+                                                                style: GLTextStyles
+                                                                    .onboardbottomcardtxt(),
+                                                              ),
+                                                              Text(
+                                                                "Category: Women",
+                                                                style: GLTextStyles
+                                                                    .onboardbottomcardtxt(),
+                                                              ),
+                                                              Text(
+                                                                "Price: ₹500",
+                                                                style: GLTextStyles
+                                                                    .onboardbottomcardtxt(),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ))
-                                            .toList(),
+                                                  ))
+                                              .toList(),
+                                        ),
                                       ),
                                     ),
                                   ),
+                                  SizedBox(height: size.height * .02)
                                 ],
                               ),
                             ),

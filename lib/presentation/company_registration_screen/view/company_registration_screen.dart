@@ -13,6 +13,7 @@ class CompanyRegistartionScreen extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+        backgroundColor: ColorTheme.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: IconButton(
@@ -25,54 +26,56 @@ class CompanyRegistartionScreen extends StatelessWidget {
               )),
           title: Text("RABLOON", style: GLTextStyles.headding()),
           centerTitle: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: ColorTheme.white,
           elevation: 0,
         ),
-        body: Padding(
-          padding: EdgeInsets.only(
-              top: size.height * .08,
-              left: size.width * .05,
-              right: size.width * .05),
-          child: Column(
-            children: [
-              Text(
-                "Share your company details to get started!",
-                style: GLTextStyles.registertxt2(),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: size.height * 0.04),
-              CompanyRegistrationTextField(label: " Enter Company Name"),
-              SizedBox(height: size.height * 0.02),
-              CompanyRegistrationTextField(label: "Enter Company Address"),
-              SizedBox(height: size.height * 0.02),
-              CompanyRegistrationTextField(label: "Enter Company Location"),
-              SizedBox(height: size.height * 0.02),
-              CompanyRegistrationTextField(
-                  label: "Enter Company Registration Number"),
-              SizedBox(height: size.height * 0.02),
-              CompanyRegistrationTextField(label: "Number of Owners"),
-              SizedBox(height: size.height * 0.02),
-              CompanyRegistrationTextField(label: "Number of Branches"),
-              SizedBox(height: size.height * 0.03),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OwnerRegistrationScreen()));
-                },
-                color: ColorTheme.maincolor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+                top: size.height * .08,
+                left: size.width * .05,
+                right: size.width * .05),
+            child: Column(
+              children: [
+                Text(
+                  "Share your company details to get started!",
+                  style: GLTextStyles.registertxt2(),
+                  textAlign: TextAlign.center,
                 ),
-                minWidth: size.width * .6,
-                height: size.height * .06,
-                child: Text(
-                  "Next",
-                  style: GLTextStyles.registerbuttontext(),
-                ),
-              )
-            ],
+                SizedBox(height: size.height * 0.04),
+                CompanyRegistrationTextField(label: " Enter Company Name"),
+                SizedBox(height: size.height * 0.02),
+                CompanyRegistrationTextField(label: "Enter Company Address"),
+                SizedBox(height: size.height * 0.02),
+                CompanyRegistrationTextField(label: "Enter Company Location"),
+                SizedBox(height: size.height * 0.02),
+                CompanyRegistrationTextField(
+                    label: "Enter Company Registration Number"),
+                SizedBox(height: size.height * 0.02),
+                CompanyRegistrationTextField(label: "Number of Owners"),
+                SizedBox(height: size.height * 0.02),
+                CompanyRegistrationTextField(label: "Number of Branches"),
+                SizedBox(height: size.height * 0.03),
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => OwnerRegistrationScreen()));
+                  },
+                  color: ColorTheme.maincolor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  minWidth: size.width * .6,
+                  height: size.height * .06,
+                  child: Text(
+                    "Next",
+                    style: GLTextStyles.registerbuttontext(),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

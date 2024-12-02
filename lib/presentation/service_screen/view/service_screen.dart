@@ -222,8 +222,8 @@ class ServiceScreen extends StatelessWidget {
                                         child: Visibility(
                                           visible: isExpanded,
                                           child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8.0),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: size.height * .01),
                                             child: SingleChildScrollView(
                                               scrollDirection: Axis.horizontal,
                                               child: Row(
@@ -313,7 +313,8 @@ class ServiceScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                      )
+                                      ),
+                                      SizedBox(height: size.height * .01)
                                     ],
                                   ),
                                 ),

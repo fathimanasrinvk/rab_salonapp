@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
 import 'package:rab_salon/presentation/company_registration_screen/view/company_registration_screen.dart';
+import 'package:rab_salon/presentation/employeeportal/employee_bottom_navigation_screen/view/employee_bottom_navigation_screen.dart';
 import 'package:rab_salon/presentation/owner_registration_screen/view/owner_registration_screen.dart';
 import '../../../core/common/TextFoemFields/custom_textform_fields.dart';
 import '../../../core/constants/color_constants.dart';
@@ -64,17 +65,26 @@ class LoginScreen extends StatelessWidget {
                     horizontal: size.height * 0.06,
                     vertical: size.height * 0.03,
                   ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorTheme.maincolor,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    width: double.infinity,
-                    height: size.height * 0.052,
-                    child: Center(
-                      child: Text(
-                        'Login',
-                        style: GLTextStyles.registerbuttontext(),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  EmployeeStatusNavigationBar()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: ColorTheme.maincolor,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      width: double.infinity,
+                      height: size.height * 0.052,
+                      child: Center(
+                        child: Text(
+                          'Login',
+                          style: GLTextStyles.registerbuttontext(),
+                        ),
                       ),
                     ),
                   ),

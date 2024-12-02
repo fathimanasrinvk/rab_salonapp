@@ -55,6 +55,11 @@ class EmployeeCustomerScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorTheme.white,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios)),
         backgroundColor: ColorTheme.white,
         centerTitle: true,
         title: Column(
@@ -203,9 +208,12 @@ class EmployeeCustomerScreen extends StatelessWidget {
                                 false;
 
                         return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: EdgeInsets.symmetric(
+                              vertical: size.height * 0.01),
                           child: Card(
-                            color: ColorTheme.white,
+                            color: isExpanded
+                                ? ColorTheme.maincolor
+                                : ColorTheme.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0),
                             ),
@@ -218,66 +226,73 @@ class EmployeeCustomerScreen extends StatelessWidget {
                                 children: [
                                   ListTile(
                                     title: Text(category,
-                                        style: GLTextStyles.categorytext()),
+                                        style: GLTextStyles.categorytext(
+                                            color: isExpanded
+                                                ? ColorTheme.white
+                                                : ColorTheme.black)),
                                   ),
                                   AnimatedSize(
                                     duration: Duration(milliseconds: 300),
                                     curve: Curves.easeInOut,
                                     child: Visibility(
                                       visible: isExpanded,
-                                      child: Column(
-                                        children: services[category]!
-                                            .where((service) => service
-                                                .toLowerCase()
-                                                .contains(searchQuery))
-                                            .map((service) {
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 4.0,
-                                                horizontal: 16.0),
-                                            child: Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              elevation: 3,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  Map<String, String>
-                                                      serviceDetails = {
-                                                    'name': service,
-                                                    'category': " Women",
-                                                    'price': '₹500'
-                                                  };
-                                                  employeeController
-                                                      .selectService(
-                                                          serviceDetails);
-                                                },
-                                                child: Container(
-                                                  padding: EdgeInsets.all(
-                                                      size.height * 0.01),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text("Service: $service",
-                                                          style: GLTextStyles
-                                                              .onboardbottomcardtxt()),
-                                                      Text(
-                                                          "Category: $category",
-                                                          style: GLTextStyles
-                                                              .onboardbottomcardtxt()),
-                                                      Text("Price: TBD",
-                                                          style: GLTextStyles
-                                                              .onboardbottomcardtxt()), // Replace with dynamic price
-                                                    ],
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: services[category]!
+                                              .where((service) => service
+                                                  .toLowerCase()
+                                                  .contains(searchQuery))
+                                              .map((service) {
+                                            return Padding(
+                                              padding: EdgeInsets.all(
+                                                  size.height * .01),
+                                              child: Card(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                elevation: 3,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Map<String, String>
+                                                        serviceDetails = {
+                                                      'name': service,
+                                                      'category': " Women",
+                                                      'price': '₹500'
+                                                    };
+                                                    employeeController
+                                                        .selectService(
+                                                            serviceDetails);
+                                                  },
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(
+                                                        size.height * 0.01),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                            "Service: $service",
+                                                            style: GLTextStyles
+                                                                .onboardbottomcardtxt()),
+                                                        Text(
+                                                            "Category: $category",
+                                                            style: GLTextStyles
+                                                                .onboardbottomcardtxt()),
+                                                        Text("Price: TBD",
+                                                            style: GLTextStyles
+                                                                .onboardbottomcardtxt()), // Replace with dynamic price
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                        }).toList(),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                     ),
                                   ),

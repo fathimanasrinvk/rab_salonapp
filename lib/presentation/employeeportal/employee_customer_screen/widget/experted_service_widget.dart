@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
 
 class ExpertedServicesWidget extends StatelessWidget {
@@ -49,10 +50,13 @@ class ExpertedServicesWidget extends StatelessWidget {
   Widget buildServiceCard(Map<String, String> service, Size size) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
       ),
       elevation: 5,
       child: Container(
+        decoration: BoxDecoration(
+            color: ColorTheme.maincolor,
+            borderRadius: BorderRadius.circular(12)),
         width: size.width * 0.3,
         padding: EdgeInsets.all(size.height * 0.01),
         child: Column(
@@ -62,19 +66,19 @@ class ExpertedServicesWidget extends StatelessWidget {
             Flexible(
               child: Text(
                 "Service",
-                style: GLTextStyles.onboardbottomcardtxt(),
+                style: GLTextStyles.registertxt1(),
               ),
             ),
             Flexible(
               child: Text(
                 "Category: ",
-                style: GLTextStyles.onboardbottomcardtxt(),
+                style: GLTextStyles.registertxt1(),
               ),
             ),
             Flexible(
               child: Text(
                 "Price:",
-                style: GLTextStyles.onboardbottomcardtxt(),
+                style: GLTextStyles.registertxt1(),
               ),
             ),
           ],
