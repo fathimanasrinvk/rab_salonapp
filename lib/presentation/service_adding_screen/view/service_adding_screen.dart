@@ -4,8 +4,6 @@ import 'package:rab_salon/core/constants/text_styles.dart';
 import 'package:rab_salon/presentation/bottom_navigation_screen/view/bottom_navigation_screen.dart';
 import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
-
-
 class ServiceAddingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,131 +20,127 @@ class ServiceAddingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('RABLOON', style: GLTextStyles.subheadding()),
-            Text('LOCATION', style: GLTextStyles.locationtext()),
           ],
         ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
-          onPressed: (){
+          onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => StatusNavigationBar(),
+                builder: (context) => OwnerBottomNavigationScreen(),
               ),
             );
           },
         ),
       ),
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: size.height * 0.04),
-                          child: Text('Add Your Saloon Services', style: GLTextStyles.subheadding2()),
-                        ),
-                        _buildTextField(
-                          context: context,
-                          title: 'Service Name',
-                          hint: 'Enter Your Service Name',
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter the service name';
-                            }
-                            return null;
-                          },
-                        ),
-                        _buildTextField(
-                          context: context,
-                          title: 'Category Name',
-                          hint: 'Enter the Category',
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter the category name';
-                            }
-                            return null;
-                          },
-                        ),
-                        _buildTextField(
-                          context: context,
-                          title: 'Price',
-                          hint: 'Enter the Price',
-                          keyboardType: TextInputType.number,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter the price';
-                            }
-                            return null;
-                          },
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: size.height * 0.03),
-                          child: Text('Gender', style: GLTextStyles.textformfieldtitle()),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: size.height * 0.014),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: Offset(5, 5),
-                                ),
-                              ],
-                            ),
-                            child: DropdownButtonFormField<String>(
-                              dropdownColor: ColorTheme.secondarycolor,
-                              isExpanded: true,
-                              isDense: true,
-                              decoration: InputDecoration(
-                                hintText: 'Select',
-                                hintStyle: GLTextStyles.textformfieldtext2(),
-                                contentPadding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.04,
-                                  vertical: size.height * 0.01,
-                                ),
-                                border: InputBorder.none,
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Add Your Saloon Services',
+                          style: GLTextStyles.subheadding2()),
+                      _buildTextField(
+                        context: context,
+                        title: 'Service Name',
+                        hint: 'Enter Your Service Name',
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the service name';
+                          }
+                          return null;
+                        },
+                      ),
+                      _buildTextField(
+                        context: context,
+                        title: 'Category Name',
+                        hint: 'Enter the Category',
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the category name';
+                          }
+                          return null;
+                        },
+                      ),
+                      _buildTextField(
+                        context: context,
+                        title: 'Price',
+                        hint: 'Enter the Price',
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the price';
+                          }
+                          return null;
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: size.height * 0.03),
+                        child: Text('Gender',
+                            style: GLTextStyles.textformfieldtitle()),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: size.height * 0.014),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                spreadRadius: 2,
+                                blurRadius: 4,
+                                offset: Offset(5, 5),
                               ),
-                              value: selectedGender,
-                              items: ['Select', 'Women', 'Men', 'Other']
-                                  .map((gender) => DropdownMenuItem(
-                                value: gender == 'Select' ? null : gender,
-                                child: Text(gender),
-                              ))
-                                  .toList(),
-                              onChanged: (value) {
-                                selectedGender = value;
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select a gender';
-                                }
-                                return null;
-                              },
+                            ],
+                          ),
+                          child: DropdownButtonFormField<String>(
+                            dropdownColor: ColorTheme.secondarycolor,
+                            isExpanded: true,
+                            isDense: true,
+                            decoration: InputDecoration(
+                              hintText: 'Select',
+                              hintStyle: GLTextStyles.textformfieldtext2(),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.04,
+                                vertical: size.height * 0.01,
+                              ),
+                              border: InputBorder.none,
                             ),
+                            value: selectedGender,
+                            items: ['Select', 'Women', 'Men', 'Other']
+                                .map((gender) => DropdownMenuItem(
+                                      value: gender == 'Select' ? null : gender,
+                                      child: Text(gender),
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              selectedGender = value;
+                            },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please select a gender';
+                              }
+                              return null;
+                            },
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Container(
@@ -204,7 +198,7 @@ class ServiceAddingScreen extends StatelessWidget {
                   height: size.height * 0.05,
                   child: Center(
                     child: Text(
-                      'SAVE',
+                      'SAVE SERVICE',
                       style: GLTextStyles.onboardingandsavebutton(),
                     ),
                   ),

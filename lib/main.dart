@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rab_salon/presentation/add_employee_screen/controller/add_employee_controller.dart';
 import 'package:rab_salon/presentation/add_employee_screen/view/add_employee_screen.dart';
+import 'package:rab_salon/presentation/bottom_navigation_screen/controller/owner_bottom_navigation_controller.dart';
 import 'package:rab_salon/presentation/bottom_navigation_screen/view/bottom_navigation_screen.dart';
 import 'package:rab_salon/presentation/brach_details_screen/controller/branch_details_screen_controller.dart';
 import 'package:rab_salon/presentation/brach_details_screen/view/branch_details_screen.dart';
@@ -22,6 +23,7 @@ import 'package:rab_salon/presentation/service_adding_screen/view/service_adding
 import 'package:rab_salon/presentation/service_details_screen/controller/service_details_screen_controller.dart';
 import 'package:rab_salon/presentation/service_details_screen/view/service_details_screen.dart';
 import 'package:rab_salon/presentation/service_screen/controller/service_screen_controller.dart';
+import 'package:rab_salon/presentation/splash_screen/view/splash_screen.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -37,6 +39,7 @@ void main() {
     ChangeNotifierProvider(create: (_) => DiscountProvider()),
     ChangeNotifierProvider(create: (_) => ServiceDetailsScreenController()),
     ChangeNotifierProvider(create: (_) => BranchDetailsScreenController()),
+     ChangeNotifierProvider(create: (_) => OwnerBottomNavigationController()),
   ], child: MyApp()));
 }
 
@@ -44,12 +47,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        // home: BranchDetailsScreen(),
-        //home: StatusNavigationBar()
-        // home: OwnerProfileScreen(),
+      debugShowCheckedModeBanner: false,
+    // home: SplashScreen(),
+      //home: StatusNavigationBar()
+      // home: OwnerProfileScreen(),
         home: EmployeeProfileOwnerScreen(),
-        // home: OnboardingScreen(),
-        );
+      // home: OnboardingScreen(),
+    );
   }
 }

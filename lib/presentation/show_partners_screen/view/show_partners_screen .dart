@@ -26,8 +26,9 @@ class ShowPartnersScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.07,vertical: size.height*0.02),
-
+        padding: EdgeInsets.symmetric(
+          horizontal: size.width * 0.07,
+        ),
         itemCount: controller.partners.length,
         itemBuilder: (context, index) {
           final partner = controller.partners[index];
@@ -36,14 +37,16 @@ class ShowPartnersScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddedPartnerDetailsScreen(partnerDetails: partner, partnerIndex: index,),
+                  builder: (context) => AddedPartnerDetailsScreen(
+                    partnerDetails: partner,
+                    partnerIndex: index,
+                  ),
                 ),
               );
             },
             child: Padding(
               padding: EdgeInsets.only(top: size.height * 0.022),
               child: Container(
-
                 decoration: BoxDecoration(
                   color: ColorTheme.maincolor,
                   borderRadius: BorderRadius.circular(12),
@@ -56,7 +59,6 @@ class ShowPartnersScreen extends StatelessWidget {
                   ],
                 ),
                 padding: EdgeInsets.all(size.width * 0.034),
-
                 child: Center(
                   child: Text(
                     partner["Partner Name"] ?? "",

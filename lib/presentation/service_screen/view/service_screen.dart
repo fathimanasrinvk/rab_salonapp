@@ -132,7 +132,9 @@ class ServiceScreen extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               child: Card(
-                                color: ColorTheme.secondarycolor,
+                                color: isExpanded
+                                    ? ColorTheme.maincolor
+                                    : ColorTheme.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
@@ -205,7 +207,10 @@ class ServiceScreen extends StatelessWidget {
                                               child: Text(
                                                 category,
                                                 style:
-                                                    GLTextStyles.categorytext(),
+                                                    GLTextStyles.categorytext(
+                                                        color: isExpanded
+                                                            ? ColorTheme.white
+                                                            : ColorTheme.black),
                                               ),
                                             ),
                                           ],
