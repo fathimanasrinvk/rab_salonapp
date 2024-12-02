@@ -241,6 +241,7 @@ class ServiceAddingScreen extends StatelessWidget {
                 ],
               ),
               child: TextFormField(
+                textInputAction: TextInputAction.next,
                 keyboardType: keyboardType,
                 decoration: InputDecoration(
                   hintText: hint,
