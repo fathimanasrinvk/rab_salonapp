@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
