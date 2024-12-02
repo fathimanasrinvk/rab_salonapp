@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
 import 'package:rab_salon/presentation/bottom_navigation_screen/view/bottom_navigation_screen.dart';
-import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
 class ServiceAddingScreen extends StatelessWidget {
   @override
@@ -156,7 +155,7 @@ class ServiceAddingScreen extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
-                    // Save and add new logic here
+                    // Save and add new logic for temporary
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Saved and ready for new entry')),
                     );
@@ -185,7 +184,7 @@ class ServiceAddingScreen extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
-                    // Save logic here
+                    // Save logic for temporary
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Form submitted successfully')),
                     );
@@ -262,40 +261,39 @@ class ServiceAddingScreen extends StatelessWidget {
   }
 }
 
-
-              // // Positioned buttons at the bottom
-              // Padding(
-              //   padding: EdgeInsets.only(
-              //     left: size.width * 0.02,
-              //     right: size.width * 0.02,
-              //   ),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       Container(
-              //         decoration: BoxDecoration(
-              //           border: Border.all(
-              //             color: ColorTheme.maincolor,
-              //             width: 1,
-              //           ),
-              //           color: ColorTheme.white,
-              //         ),
-              //         height: size.height * 0.05,
-              //         width: size.width * 0.45,
-              //         child: Center(
-              //           child: Text('SAVE AND NEW', style: GLTextStyles.saveandnewbutton()),
-              //         ),
-              //       ),
-              //       Container(
-              //         decoration: BoxDecoration(
-              //           color: ColorTheme.maincolor,
-              //         ),
-              //         height: size.height * 0.05,
-              //         width: size.width * 0.45,
-              //         child: Center(
-              //           child: Text('SAVE', style: GLTextStyles.onboardingandsavebutton()),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+// // Positioned buttons at the bottom
+// Padding(
+//   padding: EdgeInsets.only(
+//     left: size.width * 0.02,
+//     right: size.width * 0.02,
+//   ),
+//   child: Row(
+//     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//     children: [
+//       Container(
+//         decoration: BoxDecoration(
+//           border: Border.all(
+//             color: ColorTheme.maincolor,
+//             width: 1,
+//           ),
+//           color: ColorTheme.white,
+//         ),
+//         height: size.height * 0.05,
+//         width: size.width * 0.45,
+//         child: Center(
+//           child: Text('SAVE AND NEW', style: GLTextStyles.saveandnewbutton()),
+//         ),
+//       ),
+//       Container(
+//         decoration: BoxDecoration(
+//           color: ColorTheme.maincolor,
+//         ),
+//         height: size.height * 0.05,
+//         width: size.width * 0.45,
+//         child: Center(
+//           child: Text('SAVE', style: GLTextStyles.onboardingandsavebutton()),
+//         ),
+//       ),
+//     ],
+//   ),
+// ),
