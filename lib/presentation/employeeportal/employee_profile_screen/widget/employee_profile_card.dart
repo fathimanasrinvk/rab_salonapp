@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rab_salon/core/constants/text_styles.dart';
 
 class EmployeeProfileCard extends StatelessWidget {
   final String label;
@@ -18,7 +19,7 @@ class EmployeeProfileCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+        padding:  EdgeInsets.symmetric(vertical: size.height*0.01, horizontal: size.width*0.05),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -28,19 +29,12 @@ class EmployeeProfileCard extends StatelessWidget {
           children: [
             Text(
               label,
-              style:  TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
+              style: GLTextStyles.greytxt()
             ),
-             SizedBox(height: 4),
+             SizedBox(height: size.height*0.01),
             Text(
               value,
-              style:  TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+              style: GLTextStyles.textformfieldtitle()
             ),
           ],
         ),
