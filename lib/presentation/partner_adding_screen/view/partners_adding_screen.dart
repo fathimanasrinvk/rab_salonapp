@@ -6,6 +6,7 @@ import '../../../core/constants/text_styles.dart';
 import '../controller/add_partner_controller.dart';
 
 
+
 class AddPartnerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -256,6 +257,7 @@ class AddPartnerScreen extends StatelessWidget {
               controller: controller,
               obscureText: isPassword,
               decoration: InputDecoration(
+                hintText: label,
                 hintStyle: GLTextStyles.textformfieldtext2(),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(

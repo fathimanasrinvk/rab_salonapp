@@ -13,6 +13,7 @@ class EmployeeProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorTheme.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -23,10 +24,10 @@ class EmployeeProfileScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
-          onPressed:(){},
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
+        //   onPressed:(){},
+        // ),
       ),
       body: Padding(
         padding:  EdgeInsets.symmetric(horizontal: size.width*0.05, vertical: size.height*0.035),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
+import 'package:rab_salon/presentation/employeeportal/employee_bottom_navigation_screen/view/employee_bottom_navigation_screen.dart';
 import 'package:rab_salon/presentation/employeeportal/employee_profile_screen/view/employee_profile_screen.dart';
 
 import '../../../../core/constants/text_styles.dart';
@@ -9,9 +10,7 @@ class ShowMyWorksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
-
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorTheme.white,
 
@@ -23,7 +22,7 @@ class ShowMyWorksScreen extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios, color: ColorTheme.maincolor),
-            onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>EmployeeProfileScreen())),
+            onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>EmployeeStatusNavigationBar())),
           ),
         ),
         body: Column(
@@ -36,7 +35,7 @@ class ShowMyWorksScreen extends StatelessWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 6,
+                itemCount: 2,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding:  EdgeInsets.symmetric(horizontal: size.width*0.05, vertical: size.height*0.02),
@@ -74,8 +73,7 @@ class ShowMyWorksScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildLabelText(String label, String text,Size size) {

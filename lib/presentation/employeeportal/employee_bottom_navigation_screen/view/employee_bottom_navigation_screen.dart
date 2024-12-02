@@ -8,6 +8,8 @@ import 'package:rab_salon/presentation/employeeportal/employee_work_screen/view/
 import 'package:rab_salon/presentation/employees_screen/view/employees_screen.dart';
 import 'package:rab_salon/presentation/service_screen/view/service_screen.dart';
 
+import '../../employee_profile_screen/view/employee_profile_screen.dart';
+
 
 class EmployeeStatusNavigationBar extends StatelessWidget {
   const EmployeeStatusNavigationBar({super.key});
@@ -19,8 +21,7 @@ class EmployeeStatusNavigationBar extends StatelessWidget {
     // Screens list for navigation
     final List<Widget> _screens = [
       EmployeeWorkScreen(),
-      Container(
-          color: Colors.white, child: Center(child: Text("Reports Screen"))),
+      EmployeeProfileScreen(),
       Container(
           color: Colors.white, child: Center(child: Text("Settings Screen"))),
     ];

@@ -48,10 +48,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-    // home: SplashScreen(),
+    home: SplashScreen(),
       //home: StatusNavigationBar()
       // home: OwnerProfileScreen(),
-        home: EmployeeProfileOwnerScreen(),
+      //   home: EmployeeProfileOwnerScreen(),
       // home: OnboardingScreen(),
     );
   }
