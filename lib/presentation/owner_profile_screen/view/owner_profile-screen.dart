@@ -17,6 +17,7 @@ class OwnerProfileScreen extends StatelessWidget {
       {"branchName": "BRANCH", "location": "DOWNTOWN"},
     ];
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorTheme.white,
       drawer: CustomDrawer(size: size, branches: branches),
       appBar: AppBar(
