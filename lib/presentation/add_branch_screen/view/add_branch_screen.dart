@@ -43,45 +43,41 @@ class AddBranchScreen extends StatelessWidget {
             padding: EdgeInsets.only(
               left: size.width * 0.07,
               right: size.width * 0.07,
-              bottom: size.height * 0.08, // Reserve space for the button
+              // bottom: size.height * 0.08, // Reserve space for the button
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(top: size.height * 0.05),
-                  child: Text('Add Your Branches',
-                      style: GLTextStyles.subheadding2()),
-                ),
-                SizedBox(height: size.height * 0.03),
+                Text('Add Your Branches', style: GLTextStyles.subheadding2()),
+                SizedBox(height: size.height * 0.02),
                 CustomInputField(
                   labelText: 'Branch Name',
                   hintText: 'Enter Your Branch Name',
                   controller: branchNameController,
                   onChanged: (value) {},
                 ),
-                SizedBox(height: size.height * 0.03),
+                SizedBox(height: size.height * 0.02),
                 CustomInputField(
                   labelText: 'Branch Location',
                   hintText: 'Enter Your Branch Location',
                   controller: branchLocationController,
                   onChanged: (value) {},
                 ),
-                SizedBox(height: size.height * 0.03),
+                SizedBox(height: size.height * 0.02),
                 CustomInputField(
                   labelText: 'Company Registration Number',
                   hintText: 'Enter Your Company Registration Number',
                   controller: companyRegistrationNumberController,
                   onChanged: (value) {},
                 ),
-                SizedBox(height: size.height * 0.03),
+                SizedBox(height: size.height * 0.02),
                 CustomInputField(
                   labelText: 'Branch Number',
                   hintText: 'Enter Your Branch Number',
                   controller: branchNumberController,
                   onChanged: (value) {},
                 ),
-                SizedBox(height: size.height * 0.03),
+                SizedBox(height: size.height * 0.02),
                 CustomInputField(
                   labelText: 'Number of Employees',
                   hintText: 'Enter Number of Employees',
@@ -130,9 +126,9 @@ class AddBranchScreen extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-  Navigator.pop(context, true); // Pass true to indicate a branch was added
-},
-
+                  Navigator.pop(context,
+                      true); // Pass true to indicate a branch was added
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     color: ColorTheme.maincolor,

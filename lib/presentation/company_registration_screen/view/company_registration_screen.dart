@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/color_constants.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
 import 'package:rab_salon/presentation/company_registration_screen/widget/company_registration_textfield.dart';
+import 'package:rab_salon/presentation/owner_registration_screen/view/owner_registration_screen.dart';
 
-
-
-class CompanyDetailsScreen extends StatelessWidget {
+class CompanyRegistartionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
@@ -17,7 +16,9 @@ class CompanyDetailsScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: ColorTheme.maincolor,
@@ -54,14 +55,18 @@ class CompanyDetailsScreen extends StatelessWidget {
               CompanyRegistrationTextField(label: "Number of Branches"),
               SizedBox(height: size.height * 0.03),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OwnerRegistrationScreen()));
+                },
                 color: ColorTheme.maincolor,
-
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                minWidth: size.width * .6, 
-                height: size.height * .06, 
+                minWidth: size.width * .6,
+                height: size.height * .06,
                 child: Text(
                   "Next",
                   style: GLTextStyles.registerbuttontext(),

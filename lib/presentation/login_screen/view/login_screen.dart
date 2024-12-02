@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rab_salon/core/constants/text_styles.dart';
+import 'package:rab_salon/presentation/company_registration_screen/view/company_registration_screen.dart';
+import 'package:rab_salon/presentation/owner_registration_screen/view/owner_registration_screen.dart';
 import '../../../core/common/TextFoemFields/custom_textform_fields.dart';
 import '../../../core/constants/color_constants.dart';
 
@@ -77,8 +79,27 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
-
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: size.height * 0.06,
+                    vertical: size.height * 0.03,
+                  ),
+                  child: Center(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CompanyRegistartionScreen()));
+                      },
+                      child: Text(
+                        'Register as an Owner',
+                        style: GLTextStyles.registerbuttontext(),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

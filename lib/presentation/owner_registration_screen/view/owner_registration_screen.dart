@@ -73,7 +73,7 @@ class OwnerRegistrationScreen extends StatelessWidget {
                   ),
                   child: GestureDetector(
                     onTap: (){
-                      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>StatusNavigationBar()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>OwnerBottomNavigationScreen()));
                     },
                     child: Container(
                       decoration: BoxDecoration(
