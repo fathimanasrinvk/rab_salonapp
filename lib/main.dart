@@ -7,6 +7,7 @@ import 'package:rab_salon/presentation/bottom_navigation_screen/view/bottom_navi
 import 'package:rab_salon/presentation/brach_details_screen/controller/branch_details_screen_controller.dart';
 import 'package:rab_salon/presentation/brach_details_screen/view/branch_details_screen.dart';
 import 'package:rab_salon/presentation/branch_list_screen/controller/branch_list_screen_controller.dart';
+import 'package:rab_salon/presentation/change_password_screen/view/change_password_screen.dart';
 import 'package:rab_salon/presentation/company_profile_screen/controller/company_profile_controller.dart';
 import 'package:rab_salon/presentation/employee_profile_owner/controller/employee_profile_owner_controller.dart';
 import 'package:rab_salon/presentation/employee_profile_owner/view/employee_profile_owner_screen.dart';
@@ -39,7 +40,7 @@ void main() {
     ChangeNotifierProvider(create: (_) => DiscountProvider()),
     ChangeNotifierProvider(create: (_) => ServiceDetailsScreenController()),
     ChangeNotifierProvider(create: (_) => BranchDetailsScreenController()),
-     ChangeNotifierProvider(create: (_) => OwnerBottomNavigationController()),
+    ChangeNotifierProvider(create: (_) => OwnerBottomNavigationController()),
   ], child: MyApp()));
 }
 
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-    home: SplashScreen(),
+      home: SplashScreen(),
       //home: StatusNavigationBar()
       // home: OwnerProfileScreen(),
       //   home: EmployeeProfileOwnerScreen(),
